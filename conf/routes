@@ -1,0 +1,30 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Web pages
+GET     /                           controllers.HomeController.index
+GET     /profile                    controllers.HomeController.profile
+
+# Profile Controller
+GET     /profile-page               controllers.ProfileController.profilePage
+
+
+#
+
+
+# examples
+GET     /count                      controllers.CountController.count
+GET     /message                    controllers.AsyncController.message
+
+
+# assets
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+
+
+#  User Login system
+GET     /login                      controllers.ApplicationController.login
+GET     /logout                     controllers.ApplicationController.logout
+GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
