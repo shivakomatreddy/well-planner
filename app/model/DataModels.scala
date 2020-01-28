@@ -1,22 +1,20 @@
 package model
 
-case class User(id: Int, auth0Id: String, username: String, password: String, email: String,
-                travelNickname: String = "", hometown: String = "", birthDate: Int = 0,
-                numberOfCountriesVisited: Int = 0)
+import akka.http.scaladsl.model.DateTime
 
+case class User(id: Int, auth0Id: String, username: String, password: String, email: String)
 
+case class Company(id: Int, name: String, createDate: String, userId: Int)
+
+case class Customer(id: Int, name: String, email: String, notes: String, phase: String, companyId: Int)
+
+case class Project(id: Option[Int] = None, name: String, eventType: String, companyId: Int, customerId: Int)
+
+case class Task(id: Option[Int] = None, isCategory: Boolean, name: String, notes: String, isCompleted: Boolean,
+                taskDateTime: String, createdDate: String, parentId: Int, companyId: Int, projectId: Int)
 
 object Database {
   var users: Seq[User] = Seq.empty[User]
 
+  var tasks: Seq[Task] = Seq.empty[Task]
 }
-
-
-
-//{ "id": 1, "name": "Toronto October Trip", "description": "Parents visit", "userId": 1 }
-//{ "id": 2, "name": "Euro 2019", "description": "My big vacation", "userId": 1 }
-//{ "id": 3, "name": "Montreal Trip Christmas", "description": "My Christmas Trip", "userId": 1 }
-
-//{ "id": 1, "name": "Montreal", "tripId": 3}
-
-//{ "id": 4, "name": "Montreal Trip Christmas", "description": "My Christmas Trip", "userId": 1 }

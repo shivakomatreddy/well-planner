@@ -6,9 +6,14 @@
 # Web pages
 GET     /                           controllers.HomeController.index
 GET     /profile                    controllers.HomeController.profile
+GET     /pages/tasks                controllers.HomeController.projectTasks
 
 # Profile Controller
 GET     /profile-page               controllers.ProfileController.profilePage
+
+
+# User Data API Routes
+GET     /tasks:projectId            controllers.TasksController.tasksByProject(projectId: Int)
 
 
 #

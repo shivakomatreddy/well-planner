@@ -23,4 +23,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   def profile = Action {
     Ok(views.html.profile("Your new application is ready."))
   }
+
+  def projectTasks = Action {
+    Ok(views.html.projectTasks("hello world"))
+  }
 }
