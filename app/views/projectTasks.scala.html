@@ -1,6 +1,180 @@
 @(title: String)
 
-@main("Project Tasks","tasks") {
+@main("Project Tasks","tasks", "Project A") {
+    <!-- Modals -->
+
+    <!-- Edit Task Modal -->
+    <div class="modal fade" id="editTaskModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit List</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Due Date</label>
+                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Assigned To</label>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Team Member
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">SAVE CHANGES</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New List Modal -->
+    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Create List</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Title</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Due Date</label>
+                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Task Modal -->
+    <div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Description</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Due Date</label>
+                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Assigned To</label>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Team Member
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Comments Modal -->
+    <div class="modal fade bd-example-modal-lg" id="taskDetails" tabindex="-1" role="dialog" aria-labelledby="taskDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Task Comments</h5>
+                </div>
+                <div class="modal-body">
+                    <blockquote class="blockquote">
+                        <p>What is Lorem Ipsum?
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p><b>by Shiva 12:00 AM Jan 23 2020</b></p>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                        <p class="mb-0">Why do we use it?
+                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                        <br>
+                        <p><b><i>by Pooja 12:00 AM Jan 23 2020</i></b></p>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
+                        <br>
+                        <p><b>by Pooja 12:00 AM Jan 23 2020</b></p>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
+                        <br>
+                        <p><b>by Pooja 12:00 AM Jan 23 2020</b></p>
+                    </blockquote>
+                    <blockquote class="blockquote">
+                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
+                        <br>
+                        <p><b>by Pooja 12:00 AM Jan 23 2020</b></p>
+                    </blockquote>
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Enter Comment</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Add Comment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Main Content -->
 
     <div class="content">
         <div class="row">
@@ -10,34 +184,7 @@
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
                             <h4 class="card-title">Task Lists</h4>
                             <div class="mt-lg-3">
-                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal">ADD NEW LIST</button></div>
-
-                                    <!-- Modal -->
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h5 class="modal-title" id="exampleModalLabel">Create List</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlInput1">Title</label>
-                                                        <input type="text" class="form-control">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">ADD</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW LIST</button></div>
                             </div>
 
                             <div class="mt-lg-3 card card-plain">
@@ -63,7 +210,11 @@
                                                         </td>
                                                         <td class="text-left">Customer to Sign Contract</td>
                                                         <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
+                                                                <i class="nc-icon nc-chat-33"></i>
+                                                            </button>
+
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTaskModal" data-original-title="Edit Task">
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
                                                             <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
@@ -133,7 +284,7 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-original-title="New Task">
+                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task">
                                                 <i class="nc-icon nc-simple-add"></i>
                                             </button>
                                         </div>

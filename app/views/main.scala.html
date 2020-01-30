@@ -1,4 +1,4 @@
-@(title: String, activeMenuItem: String)(content: Html)
+@(title: String, activeMenuItem: String, pageTitle: String)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -148,7 +148,7 @@
                                     <span class="navbar-toggler-bar bar3"></span>
                                 </button>
                             </div>
-                            <a class="navbar-brand" href="#pablo">Project A</a>
+                            <a class="navbar-brand" href="#pablo">@pageTitle</a>
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -310,7 +310,7 @@
 
                 });
 
-                <!-- javascript init -->
+                <!-- javascript for Toggle Button Swtiches -->
                 $('.bootstrap-switch').each(function(){
                     $this = $(this);
                     data_on_label = $this.data('on-label') || '';
@@ -320,6 +320,21 @@
                         onText: data_on_label,
                         offText: data_off_label
                     });
+                });
+
+                <!-- javascript for Date Time Picker -->
+                $('.datetimepicker').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
                 });
         </script>
     </body>
