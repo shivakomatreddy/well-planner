@@ -31,7 +31,7 @@ class CallbackController @Inject() (cache: DefaultSyncCacheApi, ws: WSClient, co
           getUser(accessToken).map { user =>
             val id = request.session.get("id").get
             cache.set(request.session.get("id").get + "profile", user)
-            Redirect(routes.ProfileController.profilePage())
+            Redirect(routes.HomeController.projectTasks())
               .withSession(
                 "idToken" -> idToken,
                 "accessToken" -> accessToken,

@@ -1,13 +1,12 @@
 package controllers
 
-import java.math.BigInteger
-import java.security.SecureRandom
 import java.util.UUID.randomUUID
+
 import helpers.{Auth0Config, RandomUtil}
 import javax.inject.Inject
+import play.api.Configuration
 import play.api.cache._
 import play.api.mvc._
-import play.api.Configuration
 
 class ApplicationController @Inject() (cache: DefaultSyncCacheApi, configuration: Configuration) extends Controller {
 
