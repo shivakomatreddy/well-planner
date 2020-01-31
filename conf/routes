@@ -7,7 +7,8 @@
 GET     /                           controllers.HomeController.index
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks
-GET     /pages/settings            controllers.HomeController.settingsPage
+GET     /pages/settings             controllers.HomeController.settingsPage
+GET     /pages/budget               controllers.HomeController.projectBudgetPage
 
 # Profile Controller
 GET     /profile-page               controllers.ProfileController.profilePage

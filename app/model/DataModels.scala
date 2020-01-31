@@ -1,7 +1,5 @@
 package model
 
-import akka.http.scaladsl.model.DateTime
-
 case class User(id: Int, auth0Id: String, username: String, password: String, email: String)
 
 case class Company(id: Int, name: String, createDate: String, userId: Int)
