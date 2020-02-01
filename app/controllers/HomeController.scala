@@ -33,7 +33,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def settingsPage = Action {
-    Ok(views.html.settings("Company Settings"))
+    Ok(views.html.projectSettings("Company Settings"))
   }
 
 }
