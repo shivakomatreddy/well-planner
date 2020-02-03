@@ -45,25 +45,42 @@
                 </div>
                 <div class="sidebar-wrapper">
                     <ul class="nav">
-                        <li class="active">
+                        @if(activeMenuItem == "dashboard") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="/">
                                 <i class="nc-icon nc-air-baloon"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
+
+                    @if(activeMenuItem == "projects") {
+                        <li class="active">
+                    } else {
                         <li>
+                    }
                             <a href="/pages/projects">
                                 <i class="nc-icon nc-tie-bow"></i>
                                 <p>Projects</p>
                             </a>
                         </li>
+                    @if(activeMenuItem == "business-templates") {
+                        <li class="active">
+                    } else {
                         <li>
-                            <a href="/pages/projects">
+                    }
+                            <a href="/pages/templates">
                                 <i class="nc-icon nc-paper"></i>
                                 <p>Business Templates</p>
                             </a>
                         </li>
-                        <li>
+                    @if(activeMenuItem == "business-templates") {
+                        <li class="active">
+                    } else {
+                            <li>
+                            }
                             <a href="#">
                                 <i class="nc-icon nc-shop"></i>
                                 <p>Vendors</p>

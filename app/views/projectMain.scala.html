@@ -58,7 +58,11 @@
                             <div class="clearfix"></div>
                             <div class="collapse" id="collapseExample">
                                 <ul class="nav">
-                                    <li>
+                                    @if(activeMenuItem == "project-settings") {
+                                        <li class="active">
+                                    } else {
+                                        <li>
+                                    }
                                         <a href="/pages/settings">
                                             <span class="sidebar-mini-icon">S</span>
                                             <span class="sidebar-normal">Settings</span>
@@ -69,47 +73,75 @@
                         </div>
                     </div>
                     <ul class="nav">
-                        <li>
+                        @if(activeMenuItem == "overview") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="#">
                                 <i class="nc-icon nc-chart-pie-36"></i>
                                 <p>Overview</p>
                             </a>
                         </li>
-                        <li>
+                        @if(activeMenuItem == "tasks") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="/pages/tasks">
                                 <i class="nc-icon nc-bullet-list-67"></i>
                                 <p>Tasks</p>
                             </a>
                         </li>
-                        <li>
+                        @if(activeMenuItem == "timeline") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="#">
                                 <i class="nc-icon nc-time-alarm"></i>
                                 <p>Timeline</p>
                             </a>
                         </li>
 
-                        <li>
+                        @if(activeMenuItem == "vendor-shortlists") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="#">
                                 <i class="nc-icon nc-shop"></i>
                                 <p>Vendor Shortlists</p>
                             </a>
                         </li>
 
-                        <li class="active">
+                        @if(activeMenuItem == "budget") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="/pages/budget">
-                                <i class="nc-icon nc-bank"></i>
+                                <i class="nc-icon nc-money-coins"></i>
                                 <p>Budget</p>
                             </a>
                         </li>
 
-                        <li>
+                        @if(activeMenuItem == "notes") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="#">
                                 <i class="nc-icon nc-ruler-pencil"></i>
                                 <p>Notes</p>
                             </a>
                         </li>
 
-                        <li>
+                        @if(activeMenuItem == "calendar") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
                             <a href="../examples/calendar.html">
                                 <i class="nc-icon nc-calendar-60"></i>
                                 <p>Calendar</p>

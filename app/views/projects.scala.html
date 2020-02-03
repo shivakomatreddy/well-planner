@@ -1,18 +1,82 @@
-@main("Welcome to Wedding Planning App", "Company Projects", "Company Projects") {
+@(message: String)
+
+@main("Welcome to Wedding Planning App", "projects", "Projects") {
+    <!-- New Project Modal -->
+    <div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Bride</label>
+                            <input type="text" class="form-control">
+                            <label for="exampleFormControlInput1">Groom</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Budget</label>
+                            <input type="number" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Due Date</label>
+                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Set Visibility</label>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Visibility By
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">Customer</a>
+                                    <a class="dropdown-item" href="#">Company</a>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">ADD</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="content">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card">
+            <div class="col-lg-4 mt-lg-5">
+                <div class="card text-center" style="width: 25rem;">
+                    <div class="card-header card-header-primary">
+                        Wedding
+                    </div>
                     <div class="card-body">
-                        <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
-                            <h4 class="card-title">Projects</h4>
-                            <div class="mt-lg-3">
-                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW PROJECT</button></div>
-                            </div>
-                            <div class="mt-lg-3 card card-plain">
-                                Hello world!!
-                            </div>
-                        </div>
+                        <h4 class="card-title">Rikita & Zack</h4>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  Nov 25th 2020</p>
+                        <a href="/pages/tasks" class="btn btn-outline-warning btn-round">
+                            <i class="fa fa-heart"></i> Enter
+                        </a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        created 2 days ago
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mt-lg-5">
+                <div class="card card-plain text-center" style="width: 25rem;">
+                    <div class="card-body">
+                        <h4 class="card-title">Create Project</h4>
+                        <button class="btn btn-lg btn-warning"  data-toggle="modal" data-target="#newProject">
+                            <i class="nc-icon nc-simple-add"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -20,3 +84,17 @@
     </div>
 
 }
+
+<div class="card card-nav-tabs text-center">
+    <div class="card-header card-header-primary">
+        Featured
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">Special title treatment</h4>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>
