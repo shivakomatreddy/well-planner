@@ -11,6 +11,8 @@ GET     /pages/settings             controllers.HomeController.settingsPage
 GET     /pages/budget               controllers.HomeController.projectBudgetPage
 GET     /pages/projects             controllers.HomeController.projectsPages
 
+GET     /pages/login                controllers.HomeController.loginPage
+
 # Profile Controller
 GET     /profile-page               controllers.ProfileController.profilePage
 

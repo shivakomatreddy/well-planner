@@ -40,4 +40,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.projectSettings("Company Settings"))
   }
 
+  def loginPage = Action {
+    Ok(views.html.login())
+  }
+
 }
