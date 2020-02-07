@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/well-wedding-planner
+web: target/universal/stage/bin/WellPlanner
