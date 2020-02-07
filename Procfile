@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/Wedding Planner Management Software -Dhttp.port=$PORT
+web: target/universal/stage/bin/well-planner -Dhttp.port=$PORT
