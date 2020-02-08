@@ -1,4 +1,4 @@
-name := "WellPlanner"
+name := """well-planner"""
  
 version := "1.0" 
       

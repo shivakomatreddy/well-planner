@@ -1,1 +1,1 @@
-web: target/universal/stage/bin/WellPlanner
+web target/universal/stage/bin/well-planner -Dhttp.port=$PORT
