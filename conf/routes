@@ -4,12 +4,14 @@
 # ~~~~
 
 # Web pages
-GET     /                           controllers.HomeController.index
+GET     /                           controllers.HomeController.loginPage
+
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks
 GET     /pages/settings             controllers.HomeController.settingsPage
 GET     /pages/budget               controllers.HomeController.projectBudgetPage
 GET     /pages/projects             controllers.HomeController.projectsPages
+GET     /pages/dashboard            controllers.HomeController.mainDashboard
 
 GET     /pages/login                controllers.HomeController.loginPage
 

@@ -36,6 +36,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.projects("Projects"))
   }
 
+  def mainDashboard = Action {
+    Ok(views.html.mainDashboard("Main Dashboard"))
+  }
+
   def settingsPage = Action {
     Ok(views.html.projectSettings("Company Settings"))
   }

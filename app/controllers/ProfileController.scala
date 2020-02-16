@@ -13,7 +13,7 @@ class ProfileController @Inject() (cache: DefaultSyncCacheApi) extends Controlle
         request.session.get("id")
           .flatMap(id => Some(cache.get[JsValue](id + "profile")))
           .map(profile => f(request))
-          .orElse(Some(Redirect(routes.HomeController.index()))).get
+          .orElse(Some(Redirect(routes.HomeController.mainDashboard()))).get
     }
   }
 
