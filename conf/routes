@@ -40,3 +40,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /login                      controllers.ApplicationController.login
 GET     /logout                     controllers.ApplicationController.logout
 GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
+
+
+# Marketing Website
+#GET     /presentaiton-website/*file      controllers.Assets.versioned(path="/app/rubik-presentation-site", file: Asset)
