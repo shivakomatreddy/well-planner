@@ -2,7 +2,7 @@ package model
 
 case class User(id: Int, auth0Id: String, username: String, password: String, email: String)
 
-case class Company(id: Int, name: String, createDate: String, userId: Int)
+
 
 case class Customer(id: Int, name: String, email: String, notes: String, phase: String, companyId: Int)
 

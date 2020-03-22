@@ -42,5 +42,5 @@ GET     /logout                     controllers.ApplicationController.logout
 GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
 
 
-# Marketing Website
-#GET     /presentaiton-website/*file      controllers.Assets.versioned(path="/app/rubik-presentation-site", file: Asset)
+# REST API Routes
+POST    /businesses                 controllers.BusinessController.registerNewBusiness
