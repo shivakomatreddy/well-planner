@@ -5,6 +5,7 @@
 
 # Web pages
 GET     /                           controllers.HomeController.loginPage
+GET     /register                   controllers.HomeController.loginPage
 
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks

@@ -48,4 +48,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.login())
   }
 
+  def registerPage = Action {
+    Ok(views.html.register())
+  }
+
 }
