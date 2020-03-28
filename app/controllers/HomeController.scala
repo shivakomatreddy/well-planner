@@ -60,4 +60,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.invoices("Invoices"))
   }
 
+  def businessUserRegisterPage = Action {
+    Ok(views.html.businessUserRegistration("Welcome to the registration process"))
+  }
+
 }

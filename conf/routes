@@ -6,6 +6,7 @@
 # Web pages
 GET     /                           controllers.HomeController.loginPage
 GET     /register                   controllers.HomeController.registerPage
+GET     /register-business-user     controllers.HomeController.businessUserRegisterPage
 
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks
@@ -47,3 +48,4 @@ GET     /callback                   controllers.CallbackController.callback(code
 
 # REST API Routes
 POST    /businesses                 controllers.BusinessController.registerNewBusiness
+
