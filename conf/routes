@@ -13,6 +13,8 @@ GET     /pages/settings             controllers.HomeController.settingsPage
 GET     /pages/budget               controllers.HomeController.projectBudgetPage
 GET     /pages/projects             controllers.HomeController.projectsPages
 GET     /pages/dashboard            controllers.HomeController.mainDashboard
+GET     /pages/customers            controllers.HomeController.customerPage
+GET     /pages/invoices             controllers.HomeController.invoicesPage
 
 GET     /pages/login                controllers.HomeController.loginPage
 

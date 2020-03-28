@@ -52,4 +52,12 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.register())
   }
 
+  def customerPage = Action {
+    Ok(views.html.customers("Customers"))
+  }
+
+  def invoicesPage = Action {
+    Ok(views.html.invoices("Invoices"))
+  }
+
 }

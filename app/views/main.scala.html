@@ -79,15 +79,23 @@
                             </a>
                         </li>
 
+                    @if(activeMenuItem == "customers") {
+                        <li class="active">
+                    } else {
                         <li>
-                            <a href="#">
+                    }
+                            <a href="/pages/customers">
                                 <i class="nc-icon nc-single-02"></i>
                                 <p>Customers</p>
                             </a>
                         </li>
 
-                        <li>
-                            <a href="">
+                        @if(activeMenuItem == "invoices") {
+                            <li class="active">
+                        } else {
+                            <li>
+                        }
+                            <a href="/pages/invoices">
                                 <i class="nc-icon nc-badge"></i>
                                 <p>Invoices</p>
                             </a>
