@@ -52,8 +52,6 @@
             </div>
 
             <div class="main-panel">
-
-
                 <div class="content">
                     <div class="col-md-10 mr-auto ml-auto">
                             <!--      Wizard container        -->
@@ -83,7 +81,7 @@
                                                 <li class="nav-item" style="width: 33.3333%;">
                                                     <a class="nav-link" href="#address" data-toggle="tab" role="tab" aria-controls="address" aria-selected="true">
                                                         <i class="nc-icon nc-pin-3"></i>
-                                                        Address
+                                                        Location
                                                     </a>
                                                 </li>
                                             </ul>
@@ -98,6 +96,36 @@
                                             <div class="tab-pane show active" id="about">
                                                 <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
                                                 <div class="row justify-content-center">
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-shop"></i></span>
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Business Name (required)" name="businessName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-alert-circle-i"></i></span>
+                                                            </div>
+                                                            <input type="number" placeholder="Phone Number (required)" class="form-control" name="phoneNumber">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
+                                                            </div>
+                                                            <input type="text" placeholder="Online Website Link" class="form-control" name="existingWeddingBusinessSiteUrl">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" id="account">
+                                                <h5 class="info-text"> Let's setup your admin account now!!</h5>
+                                                <div class="row justify-content-center">
+
                                                     <div class="col-sm-4">
                                                         <div class="picture-container">
                                                             <div class="picture">
@@ -107,18 +135,29 @@
                                                             <h6 class="description">Choose Picture</h6>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-6">
+
+                                                    <div class="col-lg-10 mt-3">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control" placeholder="First Name (required)" name="firstname">
+                                                            <input type="text" class="form-control" placeholder="Admin Username (required)" name="adminUsername">
                                                         </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-circle-10"></i></span>
+                                                                <span class="input-group-text"><i class="nc-icon nc-atom"></i></span>
                                                             </div>
-                                                            <input type="text" placeholder="Last Name (required)" class="form-control" name="lastname">
+                                                            <input type="password" placeholder="Password (required)" class="form-control" name="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-atom"></i></span>
+                                                            </div>
+                                                            <input type="password" placeholder="confirmPassword (required)" class="form-control" name="confirmPassword">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-10 mt-3">
@@ -126,43 +165,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
                                                             </div>
-                                                            <input type="email" placeholder="Email (required)" class="form-control" name="email">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="account">
-                                                <h5 class="info-text"> What are you doing? (checkboxes) </h5>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-lg-10">
-                                                        <div class="row">
-                                                            <div class="col-sm-4">
-                                                                <div class="choice" data-toggle="wizard-checkbox">
-                                                                    <input type="checkbox" name="jobb" value="Design">
-                                                                    <div class="icon">
-                                                                        <i class="nc-icon nc-ruler-pencil"></i>
-                                                                    </div>
-                                                                    <h6>Design</h6>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="choice" data-toggle="wizard-checkbox">
-                                                                    <input type="checkbox" name="jobb" value="Code">
-                                                                    <div class="icon">
-                                                                        <i class="nc-icon nc-laptop"></i>
-                                                                    </div>
-                                                                    <h6>Code</h6>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-4">
-                                                                <div class="choice" data-toggle="wizard-checkbox">
-                                                                    <input type="checkbox" name="jobb" value="Develop">
-                                                                    <div class="icon">
-                                                                        <i class="nc-icon nc-atom"></i>
-                                                                    </div>
-                                                                    <h6>Develop</h6>
-                                                                </div>
-                                                            </div>
+                                                            <input type="email" placeholder="Admin Email (required)" class="form-control" name="email">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -172,42 +175,31 @@
                                                     <div class="col-sm-12">
                                                         <h5 class="info-text"> Are you living in a nice area? </h5>
                                                     </div>
-                                                    <div class="col-sm-7">
+                                                    <div class="col-lg-10 mt-3">
                                                         <div class="form-group">
-                                                            <label>Street Name</label>
+                                                            <label>City (required)</label>
                                                             <input type="text" class="form-control">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-3">
                                                         <div class="form-group">
-                                                            <label>Street No.</label>
+                                                            <label>State (required)</label>
                                                             <input type="text" class="form-control">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
                                                         <div class="form-group">
-                                                            <label>City</label>
+                                                            <label>Zip Code (required)</label>
                                                             <input type="text" class="form-control">
                                                         </div>
-                                                    </div>
-                                                    <div class="col-sm-5">
                                                         <div class="form-group select-wizard">
                                                             <label>Country</label>
-                                                            <div class="dropdown bootstrap-select"><select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select" tabindex="-98"><option class="bs-title-option" value=""></option>
-                                                                <option value="Afghanistan"> Afghanistan </option>
-                                                                <option value="Albania"> Albania </option>
-                                                                <option value="Algeria"> Algeria </option>
-                                                                <option value="American Samoa"> American Samoa </option>
-                                                                <option value="Andorra"> Andorra </option>
-                                                                <option value="Angola"> Angola </option>
-                                                                <option value="Anguilla"> Anguilla </option>
-                                                                <option value="Antarctica"> Antarctica </option>
-                                                            </select><button type="button" class="dropdown-toggle btn btn-primary btn-round bs-placeholder" data-toggle="dropdown" role="button" title="Single Select"><div class="filter-option"><div class="filter-option-inner"><div class="filter-option-inner-inner">Single Select</div></div> </div></button><div class="dropdown-menu " role="combobox"><div class="inner show" role="listbox" aria-expanded="false" tabindex="-1"><ul class="dropdown-menu inner show"></ul></div></div></div>
+                                                            <div class="dropdown bootstrap-select">
+                                                                <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select" tabindex="-98"><option class="bs-title-option" value=""></option>
+                                                                <option value="Afghanistan"> USA </option>
+                                                                <option value="Albania"> Canada </option>
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                     <div class="card-footer">
                                         <div class="pull-right">
@@ -319,7 +311,6 @@
         <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
-
         <script>
             $(document).ready(function() {
                 // Initialise the wizard
@@ -328,44 +319,33 @@
                     $('.card.card-wizard').addClass('active');
                 }, 600);
             });
-        </script>
 
-        <script>
-                $(document).ready(function() {
-                    // Javascript method's body can be found in assets/js/demos.js
-                    // demo.initDashboardPageCharts();
+            <!-- javascript for Toggle Button Swtiches -->
+            $('.bootstrap-switch').each(function(){
+                $this = $(this);
+                data_on_label = $this.data('on-label') || '';
+                data_off_label = $this.data('off-label') || '';
 
-
-                    // demo.initVectorMap();
-
+                $this.bootstrapSwitch({
+                    onText: data_on_label,
+                    offText: data_off_label
                 });
+            });
 
-                <!-- javascript for Toggle Button Swtiches -->
-                $('.bootstrap-switch').each(function(){
-                    $this = $(this);
-                    data_on_label = $this.data('on-label') || '';
-                    data_off_label = $this.data('off-label') || '';
-
-                    $this.bootstrapSwitch({
-                        onText: data_on_label,
-                        offText: data_off_label
-                    });
-                });
-
-                <!-- javascript for Date Time Picker -->
-                $('.datetimepicker').datetimepicker({
-                    icons: {
-                        time: "fa fa-clock-o",
-                        date: "fa fa-calendar",
-                        up: "fa fa-chevron-up",
-                        down: "fa fa-chevron-down",
-                        previous: 'fa fa-chevron-left',
-                        next: 'fa fa-chevron-right',
-                        today: 'fa fa-screenshot',
-                        clear: 'fa fa-trash',
-                        close: 'fa fa-remove'
-                    }
-                });
+            <!-- javascript for Date Time Picker -->
+            $('.datetimepicker').datetimepicker({
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove'
+                }
+            });
         </script>
 
 
