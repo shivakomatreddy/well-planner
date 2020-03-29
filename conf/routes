@@ -16,6 +16,7 @@ GET     /pages/projects             controllers.HomeController.projectsPages
 GET     /pages/dashboard            controllers.HomeController.mainDashboard
 GET     /pages/customers            controllers.HomeController.customerPage
 GET     /pages/invoices             controllers.HomeController.invoicesPage
+GET     /pages/vendors              controllers.HomeController.vendors
 GET     /pages/calendar             controllers.HomeController.businessCalendar
 
 GET     /pages/login                controllers.HomeController.loginPage

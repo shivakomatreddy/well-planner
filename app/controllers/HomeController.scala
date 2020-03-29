@@ -64,6 +64,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.calendar("Calendar"))
   }
 
+  def vendors = Action {
+    Ok(views.html.vendors("Vendor Contacts"))
+  }
+
   def businessUserRegisterPage = Action {
     Ok(views.html.businessUserRegistration("Welcome to the registration process"))
   }
