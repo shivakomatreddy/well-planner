@@ -72,4 +72,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.businessUserRegistration("Welcome to the registration process"))
   }
 
+  def businessTeamUsersSettingsPage = Action {
+    Ok(views.html.teamSettings("Welcome to the team settings process"))
+  }
+
 }
