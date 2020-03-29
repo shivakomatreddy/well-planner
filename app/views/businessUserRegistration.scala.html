@@ -68,8 +68,8 @@
                                         <h5 class="description">This information will let us know more about you</h5>
                                         <div class="wizard-navigation">
                                             <ul class="nav nav-pills">
-                                                <li class="nav-item active" style="width: 33.3333%;">
-                                                    <a class="nav-link active" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
+                                                <li class="nav-item" style="width: 33.3333%;">
+                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
                                                         <i class="nc-icon nc-single-02"></i>
                                                         About
                                                     </a>
@@ -87,7 +87,7 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                            <div class="moving-tab" style="width: 241.943px; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">
+                                            <div class="moving-tab" style="width: 33.3333%; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">
                                                 <i class="nc-icon nc-single-02"></i>
                                                 About
                                             </div>
@@ -309,13 +309,34 @@
         <script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
             <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
         <script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
+
+        <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+
+        <script>
+            $(document).ready(function() {
+                // Initialise the wizard
+                demo.initWizard();
+                setTimeout(function() {
+                    $('.card.card-wizard').addClass('active');
+                }, 600);
+            });
+        </script>
+
         <script>
                 $(document).ready(function() {
                     // Javascript method's body can be found in assets/js/demos.js
-                    demo.initDashboardPageCharts();
+                    // demo.initDashboardPageCharts();
 
 
-                    demo.initVectorMap();
+                    // demo.initVectorMap();
 
                 });
 
@@ -348,15 +369,6 @@
         </script>
 
 
-        <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
-        <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
 
         <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
