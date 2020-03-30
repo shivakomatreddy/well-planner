@@ -11,6 +11,6 @@ app.controller('signUpController', function($http, $window) {
 
     function reDirectToRegisterPage() {
         $window.location.href =
-            "http://" + $window.location.host + "/?businessName=" + pageCtrl.businessName + "&email=" + pageCtrl.email
+            "http://" + $window.location.host + "/register-business-user?businessName=" + pageCtrl.businessName + "&email=" + pageCtrl.email
     }
 });
