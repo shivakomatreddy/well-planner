@@ -10,8 +10,7 @@ import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import play.api.libs.ws._
 import play.api.mvc.{Action, AnyContent, Controller}
-import helpers.Auth0Config
-import model.Users
+import controllers.util.Auth0Config
 import play.api.Configuration
 import play.api.cache.SyncCacheApi
 
@@ -85,20 +84,21 @@ class CallbackController @Inject() (cache: DefaultSyncCacheApi, ws: WSClient, co
 
   def getExistingUserOrRegisterNewUser(userData: JsValue): JsValue = {
     val authOUserId = (userData \ "sub").as[String]
-    if(Users.userExists(authOUserId)) {
-      val user = Users.getByAuth0Id(authOUserId)
-      if(user.nonEmpty)
-        (userData.as[JsObject] + ("app_user_id" -> Json.toJson(user.get.id)))
-      else
-        userData
-    } else {
-      println((userData \ "name").as[String])
-      val newUser =
-        Users.register(
-          fullName = (userData \ "name").as[String],
-          auth0Id = authOUserId)
-      (userData.as[JsObject] + ("app_user_id" -> Json.toJson(newUser.id)))
-    }
+    null
+//    if(Users.userExists(authOUserId)) {
+//      val user = Users.getByAuth0Id(authOUserId)
+//      if(user.nonEmpty)
+//        (userData.as[JsObject] + ("app_user_id" -> Json.toJson(user.get.id)))
+//      else
+//        userData
+//    } else {
+//      println((userData \ "name").as[String])
+//      val newUser =
+//        Users.register(
+//          fullName = (userData \ "name").as[String],
+//          auth0Id = authOUserId)
+//      (userData.as[JsObject] + ("app_user_id" -> Json.toJson(newUser.id)))
+//    }
   }
 
 }

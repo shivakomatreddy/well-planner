@@ -1,4 +1,4 @@
-package helpers
+package controllers.util
 
 import java.math.BigInteger
 import java.security.SecureRandom

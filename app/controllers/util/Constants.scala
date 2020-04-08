@@ -1,4 +1,4 @@
-package controllers
+package controllers.util
 
 object Constants {
 
@@ -8,4 +8,3 @@ object Constants {
   val SUCCESS = "success"
 
 }
-

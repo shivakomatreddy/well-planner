@@ -26,6 +26,10 @@ libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.2.0"
 
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.1" % Test
 
+// https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+libraryDependencies += "com.sun.mail" % "javax.mail" % "1.6.2"
+
+
 // https://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
 

@@ -2,7 +2,7 @@ package controllers
 
 import java.util.UUID.randomUUID
 
-import helpers.{Auth0Config, RandomUtil}
+import controllers.util.{Auth0Config, RandomUtil}
 import javax.inject.Inject
 import play.api.Configuration
 import play.api.cache._

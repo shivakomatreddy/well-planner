@@ -1,4 +1,4 @@
-package tables
+package model.tables
 // AUTO-GENERATED Slick data model
 /** Stand-alone Slick data model for immediate use */
 object Tables extends {
@@ -26,7 +26,7 @@ trait Tables {
    *  @param country Database column country SqlType(varchar), Length(100,true), Default(None)
    *  @param modifieddate Database column modifiedDate SqlType(timestamp), Default(None)
    *  @param createddate Database column createdDate SqlType(timestamp), Default(None) */
-  final case class BusinessesRow(id: Int, name: Option[String] = None, city: Option[String] = None, state: Option[String] = None, country: Option[String] = None, modifieddate: Option[java.sql.Timestamp] = None, createddate: Option[java.sql.Timestamp] = None)
+  case class BusinessesRow(id: Int, name: Option[String] = None, city: Option[String] = None, state: Option[String] = None, country: Option[String] = None, modifieddate: Option[java.sql.Timestamp] = None, createddate: Option[java.sql.Timestamp] = None)
   /** GetResult implicit for fetching BusinessesRow objects using plain SQL queries */
   implicit def GetResultBusinessesRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[Option[java.sql.Timestamp]]): GR[BusinessesRow] = GR{
     prs => import prs._

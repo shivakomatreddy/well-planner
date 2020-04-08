@@ -429,7 +429,16 @@
         <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
 
 
+        <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+
+        <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
+
+        <script type="text/javascript">
+          var webAuth = new auth0.WebAuth({
+              domain:       'wellplanner.auth0.com',
+              clientID:     'u8R70ddHX8BmP2Jn2cc3xJBR6jEzM8x6'
+          });
+        </script>
 
     </body>
-
 </html>
