@@ -1,6 +1,6 @@
-package model.api.users.db
+package model.databases
 
-import model.api.users.User
+import model.dataModels.User
 
 trait UsersDbApi  {
 

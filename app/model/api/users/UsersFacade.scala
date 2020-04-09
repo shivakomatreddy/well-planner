@@ -1,7 +1,8 @@
 package model.api.users
 
 import javax.inject.Inject
-import model.api.users.db.{UsersDbApi, UsersDbFacade}
+import model.dataModels.User
+import model.databases.{UsersDbApi, UsersDbFacade}
 import play.api.db.DBApi
 
 @javax.inject.Singleton

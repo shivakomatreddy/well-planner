@@ -1,7 +1,6 @@
-package model.api.businesses.db
+package model.databases
 
-import model.api.businesses.Business
-import scala.concurrent.Future
+import model.dataModels.Business
 
 trait BusinessDbApi {
 

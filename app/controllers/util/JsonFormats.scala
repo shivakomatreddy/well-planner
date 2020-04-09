@@ -1,6 +1,7 @@
 package controllers.util
 
-import model.api.users.{User, UserMessage}
+import model.api.users.UserMessage
+import model.dataModels.User
 import play.api.libs.json.Json
 
 

@@ -1,9 +1,9 @@
-package model.api.businesses.db
+package model.databases
 
 import anorm.{Macro, RowParser, _}
-import model.api.businesses.Business
 import javax.inject.Inject
-import model.api.PostgresDatabase
+import model.dataModels.Business
+import model.tools.AnormExtension._
 import play.api.db.DBApi
 
 @javax.inject.Singleton
@@ -16,8 +16,8 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
       SQL("insert into businesses(name , city , state, country, modifiedDate, createdDate) " +
         "values ({name} , {city} , {state}, {country}, {modifiedDate}, {createdDate})")
         .on("name"  -> business.name, "city" -> business.city, "state" -> business.state,
-                  "country" -> business.country, "modifiedDate" -> business.modifiedDate,
-                  "createdDate" -> business.createdDate)
+          "country" -> business.country, "modifiedDate" -> business.modifiedDate,
+          "createdDate" -> business.createdDate)
         .executeInsert()
     }
   }

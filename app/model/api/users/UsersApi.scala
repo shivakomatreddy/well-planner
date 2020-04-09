@@ -1,5 +1,7 @@
 package model.api.users
 
+import model.dataModels.User
+
 trait UsersApi {
 
   def login(username: String, password: String): Option[User]

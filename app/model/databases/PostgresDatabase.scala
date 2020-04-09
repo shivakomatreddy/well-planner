@@ -1,9 +1,6 @@
-package model.api
+package model.databases
 
-import anorm.{Macro, RowParser}
 import javax.inject.Inject
-import model.api.businesses.Business
-import model.api.users.User
 import play.api.db.DBApi
 
 @javax.inject.Singleton

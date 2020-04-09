@@ -1,11 +1,10 @@
-package model.api.users.db
+package model.databases
 
 import java.sql.Connection
 
 import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
-import model.api.PostgresDatabase
-import model.api.users.User
+import model.dataModels.User
 import play.api.db.DBApi
 
 @javax.inject.Singleton
