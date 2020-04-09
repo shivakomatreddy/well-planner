@@ -8,7 +8,7 @@ trait UsersApi {
 
   def logOff(username: String, password: String): Option[User]
 
-  def register(username: String, password: String): Option[User]
+  def register(newUser: User): Option[User]
 
   def users(): Seq[User]
 

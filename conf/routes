@@ -27,7 +27,6 @@ GET     /profile-page               controllers.ProfileController.profilePage
 
 
 # User Data API Routes
-#GET     /tasks:projectId            controllers.TasksController.tasksByProject(projectId: Int)
 
 
 #
@@ -50,5 +49,5 @@ GET     /callback                   controllers.CallbackController.callback(code
 
 
 # REST API Routes
-#POST    /businesses                 controllers.BusinessController.registerNewBusiness
+POST    /businesses/signUp                 controllers.BusinessController.registerNewBusiness()
 

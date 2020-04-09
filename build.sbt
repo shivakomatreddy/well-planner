@@ -33,4 +33,7 @@ libraryDependencies += "com.sun.mail" % "javax.mail" % "1.6.2"
 // https://mvnrepository.com/artifact/org.jsoup/jsoup
 libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
 
+// https://mvnrepository.com/artifact/com.typesafe.play/play-json-joda
+libraryDependencies += "com.typesafe.play" %% "play-json-joda" % "2.6.0-RC1"
+
 unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )

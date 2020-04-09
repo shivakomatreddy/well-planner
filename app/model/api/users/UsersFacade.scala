@@ -1,7 +1,7 @@
 package model.api.users
 
 import javax.inject.Inject
-import model.dataModels.User
+import model.dataModels.{Business, User}
 import model.databases.{UsersDbApi, UsersDbFacade}
 import play.api.db.DBApi
 
@@ -22,8 +22,9 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
       loggedOffUser <- db logOff(user.username, user.password)
     } yield loggedOffUser
 
-  override def register(username: String, password: String): Option[User] =
-    db add (username, password)
+  override def register(newUser: User): Option[User] = {
+    db add newUser
+  }
 
   override def users(): Seq[User] =
     db list

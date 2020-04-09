@@ -5,12 +5,12 @@ import util.ResponseTypes._
 import util.JsonFormats._
 import com.google.inject.Inject
 import model.api.users.{UserMessage, UsersFacade}
+import model.dataModels.User
 import play.api.db.DBApi
 import play.api.libs.json.Json
 import play.api.mvc._
 
 import scala.concurrent.Future
-
 
 @Singleton
 class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends AbstractController(cc) {
@@ -51,15 +51,15 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
   }
 
   def register() = Action.async(BodyParsers.parse.json) { request =>
-    def apiRegister(data: UserMessage) =
-      api.register(data.username, data.password) match {
+    def apiRegister(newUser: User) =
+      api.register(newUser) match {
         case Some(newUser) => Future.successful(successResponse(CREATED, Json.toJson(newUser), Seq(s"Successfully registered $newUser")))
-        case None => Future.successful(errorResponse(FOUND, Seq(s"${data.username} already exists")))
+        case None => Future.successful(errorResponse(FOUND, Seq(s"${newUser.username} already exists")))
       }
 
-    request.body.validate[UserMessage].fold(
+    request.body.validate[User].fold(
       errors => badRequest,
-      data => apiRegister(data)
+      payload => apiRegister(payload)
     )
   }
 

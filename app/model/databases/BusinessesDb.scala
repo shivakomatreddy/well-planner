@@ -2,7 +2,7 @@ package model.databases
 
 import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
-import model.dataModels.Business
+import model.dataModels.{Business, User}
 import model.tools.AnormExtension._
 import play.api.db.DBApi
 
@@ -22,10 +22,21 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
     }
   }
 
-
   override def list(): Seq[Business] =
     db.withConnection { implicit connection =>
       SQL("select * from businesses").as(parser.*)
     }
+
+  def find(businessName: String): Option[Business] =
+    db.withConnection { implicit connection =>
+      SQL("select * from users where username = {username} and password = {password}")
+        .on("businessName" -> businessName)
+        .as(parser.singleOpt)
+    }
+
+  def existsByName(businessName: String): Boolean = {
+    find(businessName).nonEmpty
+  }
+
 
 }

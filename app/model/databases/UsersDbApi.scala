@@ -10,7 +10,7 @@ trait UsersDbApi  {
 
   def find(username: String, password: String): Option[User]
 
-  def add(username: String, password: String): Option[User]
+  def add(user: User): Option[User]
 
   def list(): Seq[User]
 

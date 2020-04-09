@@ -6,6 +6,7 @@ import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
 import model.dataModels.User
 import play.api.db.DBApi
+import model.tools.AnormExtension._
 
 @javax.inject.Singleton
 class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with UsersDbApi {
@@ -38,13 +39,18 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
       SQL("select * from users").as(parser.*)
     }
 
-  override def add(username: String, password: String): Option[User] =
+  override def add(u: User): Option[User] =
     db.withConnection { implicit connection =>
-      if(findByUsername(username).isEmpty) {
-        SQL("insert into users(username, password) values ({username}, {password})")
-          .on("username" -> username, "password" -> password)
+      if(findByUsername(u.username).isEmpty) {
+        SQL("insert into users(username, password, loggedIn, email, businessId, isAdmin, isCustomer, " +
+                   "isAnEmployee, modifiedDate, createdDate) " +
+           "values ({username}, {password}, {loggedIn}, {email}, {businessId}, " +
+                   "{isAdmin}, {isCustomer}, {isAnEmployee}, {modifiedDate}, {createdDate})")
+          .on("username" -> u.username, "password" -> u.password, "loggedIn" -> u.loggedIn, "email" -> u.email,
+                    "businessId" -> u.businessId + "isAdmin" -> u.isAdmin, "isCustomer" -> u.isCustomer,
+                    "isAnEmployee" -> u.isAnEmployee + "modifiedDate" -> u.modifiedDate + "createdDate" -> u.createdDate)
           .executeInsert()
-        find(username, password)
+        find(u.username, u.password)
       }
       else None
     }
