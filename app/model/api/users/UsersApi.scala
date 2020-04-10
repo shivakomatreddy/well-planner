@@ -1,8 +1,11 @@
 package model.api.users
 
+import model.api.businesses.UsernameAndEmailCheckMessage
 import model.dataModels.User
 
 trait UsersApi {
+
+  def userNameAndEmailCheck(username: String, email: String): UsernameAndEmailCheckMessage
 
   def login(username: String, password: String): Option[User]
 

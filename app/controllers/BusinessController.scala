@@ -7,7 +7,8 @@ import model.api.businesses.{BusinessesApi, NewBusinessSignupMessage}
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AbstractController, Action, BodyParsers, ControllerComponents, Result}
+import play.api.mvc._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 import scala.concurrent.Future
 
@@ -35,6 +36,13 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) ext
       errors => badRequest,
       payload => apiRegister(payload)
     )
+  }
+
+  def businessExists(businessName: String) = Action.async {
+    val businessExists = businessesApi.businessExists(businessName)
+    val jsonData = Json.toJson(s"{ $businessName : $businessExists }")
+    val successMessage = Seq("true if it exists otherwise false if it doesn't exist")
+    Future.successful(successResponse(OK, jsonData, successMessage))
   }
 
 }

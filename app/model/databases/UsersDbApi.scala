@@ -10,6 +10,10 @@ trait UsersDbApi  {
 
   def find(username: String, password: String): Option[User]
 
+  def userNameExists(username: String): Boolean
+
+  def emailExists(email: String): Boolean
+
   def add(user: User): Option[User]
 
   def list(): Seq[User]

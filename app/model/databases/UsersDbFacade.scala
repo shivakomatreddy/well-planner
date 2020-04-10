@@ -34,6 +34,21 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
         .as(parser.singleOpt)
     }
 
+  override def userNameExists(username: String): Boolean = {
+    db.withConnection { implicit connection =>
+      findByUsername(username).nonEmpty
+    }
+  }
+
+  override def emailExists(email: String): Boolean = {
+    db.withConnection { implicit connection =>
+      SQL("select * from users where email = {email}")
+        .on("email" -> email)
+        .as(parser.singleOpt)
+        .nonEmpty
+    }
+  }
+
   override def list(): Seq[User] =
     db.withConnection { implicit connection =>
       SQL("select * from users").as(parser.*)

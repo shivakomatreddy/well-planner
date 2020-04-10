@@ -9,7 +9,6 @@ import model.dataModels.User
 import play.api.db.DBApi
 import play.api.libs.json.Json
 import play.api.mvc._
-
 import scala.concurrent.Future
 
 @Singleton
@@ -61,6 +60,13 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
       errors => badRequest,
       payload => apiRegister(payload)
     )
+  }
+
+  def usernameAndEmailExists(username: String, email: String) = Action.async {
+    val userNameAndEmailExists = api.userNameAndEmailCheck(username, email)
+    val jsonData = Json.toJson(s"{ usernameExists : ${userNameAndEmailExists.usernameExists}, emailExists: ${userNameAndEmailExists.emailExists}")
+    val successMessage = Seq("true if it exists otherwise false if it doesn't exist")
+    Future.successful(successResponse(OK, jsonData, successMessage))
   }
 
   def users() =  Action {

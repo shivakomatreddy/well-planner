@@ -1,7 +1,8 @@
 package model.api.users
 
 import javax.inject.Inject
-import model.dataModels.{Business, User}
+import model.api.businesses.UsernameAndEmailCheckMessage
+import model.dataModels.User
 import model.databases.{UsersDbApi, UsersDbFacade}
 import play.api.db.DBApi
 
@@ -9,6 +10,10 @@ import play.api.db.DBApi
 class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
   private val db: UsersDbApi = new UsersDbFacade(dbApi)
+
+  override def userNameAndEmailCheck(username: String, email: String): UsernameAndEmailCheckMessage = {
+    UsernameAndEmailCheckMessage(usernameExists = db userNameExists(username), emailExists = db emailExists(email))
+  }
 
   override def login(username: String, password: String): Option[User] =
     for {

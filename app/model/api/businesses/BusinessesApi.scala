@@ -29,4 +29,7 @@ class BusinessesApi(dbApi: DBApi) {
       }
   }
 
+  def businessExists(businessName: String): Boolean =
+    businessesDb.existsByName(businessName)
+
 }

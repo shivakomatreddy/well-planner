@@ -29,7 +29,7 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
 
   def find(businessName: String): Option[Business] =
     db.withConnection { implicit connection =>
-      SQL("select * from users where username = {username} and password = {password}")
+      SQL(s"select * from businesses where name = {businessName}")
         .on("businessName" -> businessName)
         .as(parser.singleOpt)
     }

@@ -19,9 +19,6 @@ object ResponseTypes {
       case None => successResponse(status, JsNull, messages)
     }
 
-
-
-
   def successResponse(status: Int, data: JsValue, messages: Seq[String]): Result =
     new Status(status)(obj("status" -> SUCCESS, "data" -> data, "msg" -> messages.mkString(",")))
 
