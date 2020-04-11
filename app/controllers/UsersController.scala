@@ -69,6 +69,16 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
     Future.successful(successResponse(OK, jsonData, successMessage))
   }
 
+  def usernameExists(username: String) = Action.async {
+    val successMessage = Seq("true if it exists otherwise false if it doesn't exist")
+    Future.successful(successBooleanResponse(OK, api.userNameCheck(username), successMessage))
+  }
+
+  def emailExists(email: String) = Action.async {
+    val successMessage = Seq("true if it exists otherwise false if it doesn't exist")
+    Future.successful(successBooleanResponse(OK, api.emailCheck(email), successMessage))
+  }
+
   def users() =  Action {
     successResponse(OK, Json.toJson(api.users()), Seq("Successfully processed"))
   }

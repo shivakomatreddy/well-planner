@@ -6,6 +6,8 @@ import model.dataModels.User
 import model.databases.{UsersDbApi, UsersDbFacade}
 import play.api.db.DBApi
 
+import scala.math.Ordering.BooleanOrdering
+
 @javax.inject.Singleton
 class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
@@ -14,6 +16,14 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
   override def userNameAndEmailCheck(username: String, email: String): UsernameAndEmailCheckMessage = {
     UsernameAndEmailCheckMessage(usernameExists = db userNameExists(username), emailExists = db emailExists(email))
   }
+
+  override def userNameCheck(username: String): Boolean =
+    db userNameExists(username)
+
+
+  override def emailCheck(email: String): Boolean =
+    db emailExists email
+
 
   override def login(username: String, password: String): Option[User] =
     for {

@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import controllers.util.JsonFormats._
-import controllers.util.ResponseTypes.{errorResponse, successResponse}
+import controllers.util.ResponseTypes._
 import model.api.businesses.{BusinessesApi, NewBusinessSignupMessage}
 import play.api.Logger
 import play.api.db.DBApi
@@ -40,9 +40,8 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) ext
 
   def businessExists(businessName: String) = Action.async {
     val businessExists = businessesApi.businessExists(businessName)
-    val jsonData = Json.toJson(s"{ $businessName : $businessExists }")
     val successMessage = Seq("true if it exists otherwise false if it doesn't exist")
-    Future.successful(successResponse(OK, jsonData, successMessage))
+    Future.successful(successBooleanResponse(OK, businessExists, successMessage))
   }
 
 }

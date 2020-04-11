@@ -53,3 +53,5 @@ POST    /businesses/signUp                 controllers.BusinessController.regist
 GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 
+GET     /users/:username                  controllers.UsersController.usernameExists(username)
+GET     /users/:email                  controllers.UsersController.usernameExists(email)
