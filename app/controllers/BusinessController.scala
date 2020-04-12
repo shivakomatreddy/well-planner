@@ -3,7 +3,7 @@ package controllers
 import com.google.inject.Inject
 import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes._
-import model.api.businesses.{BusinessesApi, NewBusinessSignupMessage}
+import model.api.businesses.{AdminSignUpMessage, BusinessesApi, NewBusinessSignupMessage}
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
@@ -23,7 +23,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) ext
 
   def registerNewBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
 
-    def apiRegister(newBusiness: NewBusinessSignupMessage): Future[Result] = {
+    def apiRegister(newBusiness: AdminSignUpMessage): Future[Result] = {
       businessesApi.signUpBusiness(newBusiness) match {
         case Right(data) =>
           logger.info(s"Successfully registered \n user details follow : \n { ${Json.toJson(data).toString} } ")
@@ -32,7 +32,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) ext
       }
     }
 
-    request.body.validate[NewBusinessSignupMessage].fold(
+    request.body.validate[AdminSignUpMessage].fold(
       errors => badRequest,
       payload => {
         println(payload.toString)

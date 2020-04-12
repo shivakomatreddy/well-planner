@@ -24,7 +24,7 @@
             <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
     </head>
-    <body class="" data-ng-app="wellPlanner" data-ng-controller="registerBusinessController as pageController">
+    <body class="" data-ng-app="wellPlanner" data-ng-controller="registerBusinessController as pageController" data-ng-init="pageController.initializeFormValidators()">
         <div class="wrapper ">
             <div class="sidebar" data-color="white" data-active-color="danger">
                 <div class="logo">
@@ -37,7 +37,7 @@
                         <li class="active">
                             <a href="/register-business-user">
                                 <i class="nc-icon nc-spaceship"></i>
-                                <p>Registration</p>
+                                <p>Account</p>
                             </a>
                         </li>
 
@@ -60,33 +60,26 @@
                                 <form action="" method="" novalidate="novalidate">
                                     <div class="card-header text-center">
                                         <h3 class="card-title">
-                                            Registering Your Business
+                                            Account Registration
                                         </h3>
                                         <h5 class="description">This information will let us know more about you</h5>
                                         <div class="wizard-navigation">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('About')">
+                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
                                                         <i class="nc-icon nc-tie-bow"></i>
-                                                        About
+                                                        Business Info
                                                     </a>
                                                 </li>
                                                 <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('Account')">
+                                                    <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="true">
                                                         <i class="nc-icon nc-touch-id"></i>
                                                         Account
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#address" data-toggle="tab" role="tab" aria-controls="address" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('Location')">
-                                                        <i class="nc-icon nc-pin-3"></i>
-                                                        Location
                                                     </a>
                                                 </li>
                                             </ul>
                                             <div class="moving-tab" style="width: 33.3333%; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">
                                                 <i class="nc-icon nc-single-02"></i>
-                                                About
                                             </div>
                                         </div>
                                     </div>
@@ -96,15 +89,12 @@
                                                 <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
                                                 <div class="row justify-content-center">
                                                     <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
+
+                                                        <div class="input-group" id="businessNameInputGroup">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-shop"></i></span>
                                                             </div>
-                                                            <input type="text" class="form-control" placeholder="Business Name (required)" name="businessName" data-ng-model="pageController.businessName" data-ng-change="pageController.resetValidateButton()" required>
-                                                        </div>
-                                                        <div>
-                                                            <p ng-hide="pageController.businessNameExists" style="color:green">Business Name Available</p>
-                                                            <p ng-show="pageController.businessNameExists || pageController.businessNameExists==null" style="color:red">{{pageController.errorMsg}}</p>
+                                                            <input type="text" class="form-control" placeholder="Business Name (required)" name="businessName" data-ng-model="pageController.businessName">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-10 mt-3">
@@ -112,55 +102,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-alert-circle-i"></i></span>
                                                             </div>
-                                                            <input type="number" placeholder="Phone Number (required)" class="form-control" name="phoneNumber" data-ng-model="pageController.phoneNumber" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
-                                                            </div>
-                                                            <input type="text" placeholder="Online Website Link" class="form-control" name="existingWeddingBusinessSiteUrl" data-ng-model="pageController.websiteLink">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="address">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-sm-12">
-                                                        <h5 class="info-text"> We are asking for the location information for better understanding of your business for later features ?</h5>
-                                                    </div>
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="form-group">
-                                                            <label>City (required)</label>
-                                                            <input type="text" class="form-control" data-ng-model="pageController.city" required>
-                                                            <div>
-                                                                <p ng-show="pageController.errorCityMsg !== undefined" style="color:red">{{pageController.errorCityMsg}}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>State (required)</label>
-                                                            <input type="text" class="form-control" data-ng-model="pageController.state" required>
-                                                            <div>
-                                                                <p ng-show="pageController.errorStateMessage !== undefined" style="color:red">{{pageController.errorStateMessage}}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Zip Code (required)</label>
-                                                            <input type="text" class="form-control" data-ng-model="pageController.zip5" required>
-                                                            <div>
-                                                                <p ng-show="pageController.errorZip5 !== undefined" style="color:red">{{pageController.errorZip5}}</p>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group select-wizard">
-                                                            <label>Country</label>
-                                                            <div class="dropdown bootstrap-select">
-                                                                <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select" tabindex="-98">
-                                                                <option class="bs-title-option" value="" required></option>
-                                                                <option value="USA"> USA </option>
-                                                                <option value="Canada"> Canada </option>
-                                                                </select>
-                                                            </div>
+                                                            <input type="number" placeholder="Phone Number (required)" class="form-control" name="phoneNumber" data-ng-model="pageController.phoneNumber">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,39 +110,12 @@
                                             <div class="tab-pane" id="account">
                                                 <h5 class="info-text"> Let's setup your admin account now!!</h5>
                                                 <div class="row justify-content-center">
-
-                                                    <div class="col-sm-4">
-                                                        <div class="picture-container">
-                                                            <div class="picture">
-                                                                <img src="@routes.Assets.versioned("template_assets/img/default-avatar.png")" class="picture-src" id="wizardPicturePreview" title="">
-                                                                <input type="file" id="wizard-picture">
-                                                            </div>
-                                                            <h6 class="description">Choose Picture</h6>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="Admin Username (required)" name="adminUsername"  data-ng-model="pageController.username" data-ng-change="pageController.resetValidateButton()" required>
-                                                        </div>
-                                                        <div>
-                                                            <p ng-hide="pageController.userNameExists" style="color:green">Username available</p>
-                                                            <p ng-show="pageController.userNameExists || pageController.userNameExists==null" style="color:red">{{pageController.errorMsgUserName}}</p>
-                                                        </div>
-                                                    </div>
                                                     <div class="col-lg-10 mt-3">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
                                                             </div>
-                                                            <input type="email" placeholder="Admin Email (required)" class="form-control" name="email" data-ng-model="pageController.email" data-ng-change="pageController.resetValidateButton()" required>
-                                                        </div>
-                                                        <div>
-                                                            <p ng-hide="pageController.emailExists" style="color:green">Email available</p>
-                                                            <p ng-show="pageController.emailExists || pageController.emailExists==null" style="color:red">{{pageController.errorMsgEmail}}</p>
+                                                            <input type="email" placeholder="Admin Email (required)" class="form-control" name="email" data-ng-model="pageController.email">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-10 mt-3">
@@ -208,20 +123,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-atom"></i></span>
                                                             </div>
-                                                            <input type="password" placeholder="Password (required)" class="form-control" name="password"  data-ng-model="pageController.password" data-ng-change="pageController.resetValidateButton()" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-atom"></i></span>
-                                                            </div>
-                                                            <input type="password" placeholder="confirmPassword (required)" class="form-control" name="confirmPassword"  data-ng-change="pageController.passwordMatch()" data-ng-model="pageController.confirmPassword"  required>
-                                                        </div>
-                                                        <div>
-                                                            <p ng-show="pageController.isMatch" style="color:green">Password matched</p>
-                                                            <p ng-hide="pageController.isMatch || pageController.confirmPassword==null" style="color:red"> Password not matched </p>
-                                                            <p ng-show="pageController.errorPassword !== undefined" style="color:red">{{pageController.errorPassword}}</p>
+                                                            <input type="password" placeholder="Password (required)" class="form-control" name="password"  data-ng-model="pageController.password">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -229,12 +131,11 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="pull-right">
-                                            <input type="button" class="btn btn-fill btn-rose btn-wd" name="validate" value="Validate" data-ng-click="pageController.validateForm()" ng-show="pageController.validateButtonEnabled">
-                                            <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next" data-ng-click="pageController.nextSignUpSection()" ng-show="pageController.nextButtonEnabled">
-                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" data-ng-click="pageController.registerBusinessWithAdminUser()" style="display: none;">
+                                            <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next" data-ng-click="pageController.nextSignUpSection()">
+                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;" data-ng-click="pageController.onFinish()">
                                         </div>
                                         <div class="pull-left">
-                                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous" data-ng-click="pageController.previousSection()">
+                                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -250,15 +151,6 @@
                         <div class="row">
                             <nav class="footer-nav">
                                 <ul>
-                                    @*                                    <li>*@
-                                    @*                                        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>*@
-                                    @*                                    </li>*@
-                                    @*                                    <li>*@
-                                    @*                                        <a href="http://blog.creative-tim.com/" target="_blank">Blog</a>*@
-                                    @*                                    </li>*@
-                                    @*                                    <li>*@
-                                    @*                                        <a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>*@
-                                    @*                                    </li>*@
                                 </ul>
                             </nav>
                             <div class="credits ml-auto">
@@ -291,7 +183,10 @@
             <!--  Plugin for Sweet Alert -->
         <script src="@routes.Assets.versioned("template_assets/js/plugins/sweetalert2.min.js")"></script>
             <!-- Forms Validations Plugin -->
-        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>
+@*        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>*@
+
 
             <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
         <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.bootstrap-wizard.js")"></script>
@@ -338,16 +233,12 @@
         <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/businessRegistrationWizard.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/wellPlannerValidators.js")"></script>
         <script>
-            $(document).ready(function() {
-                // Initialise the wizard
-                demo.initWizard();
-                setTimeout(function() {
-                    $('.card.card-wizard').addClass('active');
-                }, 600);
-            });
 
-            <!-- javascript for Toggle Button Swtiches -->
+
+                <!-- javascript for Toggle Button Swtiches -->
             $('.bootstrap-switch').each(function(){
                 $this = $(this);
                 data_on_label = $this.data('on-label') || '';
@@ -379,7 +270,8 @@
 
         <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
-        <script src="@routes.Assets.versioned("javascripts/angular/registerBusinessController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/registrationController.js")"></script>
+
     </body>
 
 </html>

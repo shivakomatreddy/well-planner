@@ -1,6 +1,6 @@
 package controllers.util
 
-import model.api.businesses.NewBusinessSignupMessage
+import model.api.businesses.{AdminSignUpMessage, NewBusinessSignupMessage}
 import model.api.users.UserMessage
 import model.dataModels.{Business, User}
 import org.joda.time.DateTime
@@ -21,5 +21,7 @@ object JsonFormats {
   implicit val businessFormat = Json.format[Business]
 
   implicit val newBusinessSignUpMessageFormat = Json.format[NewBusinessSignupMessage]
+
+  implicit val adminSignUpMessageFormat = Json.format[AdminSignUpMessage]
 
 }

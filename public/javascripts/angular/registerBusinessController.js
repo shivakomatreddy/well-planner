@@ -26,15 +26,67 @@ app.controller('registerBusinessController', function($http, $window) {
     pageCtrl.userNameExists = true;
     pageCtrl.emailExists = true;
 
-    pageCtrl.errorMsg = "";
+    pageCtrl.errorMsg = undefined;
+    pageCtrl.errorPhonenumber = undefined;
     pageCtrl.errorMsgUserName = "";
     pageCtrl.errorMsgEmail = "";
     pageCtrl.errorPassword = undefined;
     pageCtrl.step = 1;
 
-    pageCtrl.errorCityMsg = undefined;
-    pageCtrl.errorStateMessage = undefined;
-    pageCtrl.errorZip5 = undefined;
+    pageCtrl.phoneNumberValidated = false;
+    pageCtrl.businessNameValidated = false;
+
+
+    pageCtrl.isBusinessNameValidated = function () {
+        var isValidAlphaNumeric = pageCtrl.isValidInput(pageCtrl.businessName);
+        console.log("valid -> " + isValidAlphaNumeric);
+
+        var businessInputGroup = angular.element( document.querySelector( '#businessNameInputGroup' ) );
+
+
+        if(isValidAlphaNumeric && pageCtrl.businessName !== undefined) {
+            var isDigitsOnly = pageCtrl.digitsOnly(pageCtrl.businessName);
+            if(!isDigitsOnly) {
+                pageCtrl.errorMsg = undefined;
+                pageCtrl.businessNameValidated = true;
+                if(pageCtrl.phoneNumberValidated) pageCtrl.nextButtonEnabled = true;
+                return  true;
+            } else {
+                pageCtrl.nextButtonEnabled = false;
+                pageCtrl.businessNameValidated = false;
+                businessInputGroup.removeClass('has-success').addClass('has-danger');
+                console.log("next button state: -> " + pageCtrl.nextButtonEnabled);
+                pageCtrl.errorMsg = "*Invalid business name. Found digits only. It must be alphanumeric !";
+                return false;
+            }
+
+        } else {
+            if(pageCtrl.businessName === undefined) pageCtrl.errorMsg = "*Required Field";
+            else pageCtrl.errorMsg = "*Invalid business name. Cannot use special characters. It must be alphanumeric !";
+            businessInputGroup.removeClass('has-success').addClass('has-danger');
+            pageCtrl.nextButtonEnabled = false;
+            pageCtrl.businessNameValidated = false;
+            return false;
+        }
+    };
+
+    pageCtrl.isPhoneNumberValid = function () {
+        var isValid = /^\d{10}$/.test(pageCtrl.phoneNumber);
+        if(isValid) {
+            pageCtrl.errorPhonenumber = undefined;
+            pageCtrl.phoneNumberValidated = true;
+            console.log("next button state isPhone 1: -> " + pageCtrl.nextButtonEnabled);
+            console.log("business validator -> " + pageCtrl.isBusinessNameValidated);
+            if(pageCtrl.businessNameValidated) pageCtrl.nextButtonEnabled = true;
+            console.log("next button state isPhone 2: -> " + pageCtrl.nextButtonEnabled);
+            return true
+        } else {
+            pageCtrl.nextButtonEnabled = false;
+            pageCtrl.phoneNumberValidated = false;
+            pageCtrl.errorPhonenumber = "*Invalid phone number. It must be 10 digits";
+            return false
+        }
+    };
 
     pageCtrl.setStep = function(step){
         pageCtrl.step = step;
@@ -85,8 +137,6 @@ app.controller('registerBusinessController', function($http, $window) {
             }, function myError() {
                 console.log("ERROR creating a trip");
             })
-
-
     };
 
     pageCtrl.passwordMatch = function () {
@@ -116,6 +166,7 @@ app.controller('registerBusinessController', function($http, $window) {
         console.log("validate button pressed");
 
         if(pageCtrl.step === pageCtrl.businessInfoSection) {
+            console.log("validating business section");
 
             if(pageCtrl.businessName === undefined) {
                 pageCtrl.errorMsg = "*required field for validation"
@@ -152,13 +203,13 @@ app.controller('registerBusinessController', function($http, $window) {
                         pageCtrl.userNameExists = true;
                         pageCtrl.errorMsgUserName = "*Invalid username. Found digits only. It must be alphanumeric !"
                     } else {
-                        if(pageCtrl.isValidPassword(pageCtrl.confirmPassword)) {
+                        if(pageCtrl.isValidPassword(pageCtrl.password)) {
                             pageCtrl.errorPassword = undefined;
                             var emailFormatGood = pageCtrl.validateEmailSyntax(pageCtrl.email);
                             if (emailFormatGood) pageCtrl.validationsForUsernameEmailAndPassword();
                             else pageCtrl.errorMsgEmail = "Email format is invalid!";
                         } else {
-                            pageCtrl.errorPassword = "*Invalid password. at least 1 upper, 1 lower, 1 digit, 1 special char, and minimum 8 characters "
+                            pageCtrl.errorPassword = "*Invalid password. At least 1 upper, 1 lower, 1 digit, 1 special char, and minimum 8 characters "
                         }
                     }
                 } else {
@@ -287,6 +338,7 @@ app.controller('registerBusinessController', function($http, $window) {
         });
     };
 
+
     pageCtrl.digitsOnly = function (data) {
         return /^\d+$/.test(data);
     };
@@ -323,6 +375,5 @@ app.controller('registerBusinessController', function($http, $window) {
     pageCtrl.isValidAlphabetsOnlyData = function (formValue) {
         return /[^a-zA-Z\-\/]/.test(formValue);
     }
-
 
 });
