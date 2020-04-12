@@ -34,7 +34,10 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) ext
 
     request.body.validate[NewBusinessSignupMessage].fold(
       errors => badRequest,
-      payload => apiRegister(payload)
+      payload => {
+        println(payload.toString)
+        apiRegister(payload)
+      }
     )
   }
 

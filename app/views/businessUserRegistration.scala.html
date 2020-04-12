@@ -66,19 +66,19 @@
                                         <div class="wizard-navigation">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
+                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('About')">
                                                         <i class="nc-icon nc-tie-bow"></i>
                                                         About
                                                     </a>
                                                 </li>
                                                 <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="true">
+                                                    <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('Account')">
                                                         <i class="nc-icon nc-touch-id"></i>
                                                         Account
                                                     </a>
                                                 </li>
                                                 <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#address" data-toggle="tab" role="tab" aria-controls="address" aria-selected="true">
+                                                    <a class="nav-link" href="#address" data-toggle="tab" role="tab" aria-controls="address" aria-selected="true" data-ng-click="pageController.setStepIfTabMenuClicked('Location')">
                                                         <i class="nc-icon nc-pin-3"></i>
                                                         Location
                                                     </a>
@@ -133,21 +133,30 @@
                                                     <div class="col-lg-10 mt-3">
                                                         <div class="form-group">
                                                             <label>City (required)</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" data-ng-model="pageController.city" required>
+                                                            <div>
+                                                                <p ng-show="pageController.errorCityMsg !== undefined" style="color:red">{{pageController.errorCityMsg}}</p>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>State (required)</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" data-ng-model="pageController.state" required>
+                                                            <div>
+                                                                <p ng-show="pageController.errorStateMessage !== undefined" style="color:red">{{pageController.errorStateMessage}}</p>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Zip Code (required)</label>
-                                                            <input type="text" class="form-control">
+                                                            <input type="text" class="form-control" data-ng-model="pageController.zip5" required>
+                                                            <div>
+                                                                <p ng-show="pageController.errorZip5 !== undefined" style="color:red">{{pageController.errorZip5}}</p>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group select-wizard">
                                                             <label>Country</label>
                                                             <div class="dropdown bootstrap-select">
                                                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary btn-round" title="Single Select" tabindex="-98">
-                                                                <option class="bs-title-option" value=""></option>
+                                                                <option class="bs-title-option" value="" required></option>
                                                                 <option value="USA"> USA </option>
                                                                 <option value="Canada"> Canada </option>
                                                                 </select>
@@ -185,6 +194,18 @@
                                                     <div class="col-lg-10 mt-3">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
+                                                            </div>
+                                                            <input type="email" placeholder="Admin Email (required)" class="form-control" name="email" data-ng-model="pageController.email" data-ng-change="pageController.resetValidateButton()" required>
+                                                        </div>
+                                                        <div>
+                                                            <p ng-hide="pageController.emailExists" style="color:green">Email available</p>
+                                                            <p ng-show="pageController.emailExists || pageController.emailExists==null" style="color:red">{{pageController.errorMsgEmail}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-atom"></i></span>
                                                             </div>
                                                             <input type="password" placeholder="Password (required)" class="form-control" name="password"  data-ng-model="pageController.password" data-ng-change="pageController.resetValidateButton()" required>
@@ -200,18 +221,7 @@
                                                         <div>
                                                             <p ng-show="pageController.isMatch" style="color:green">Password matched</p>
                                                             <p ng-hide="pageController.isMatch || pageController.confirmPassword==null" style="color:red"> Password not matched </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-send"></i></span>
-                                                            </div>
-                                                            <input type="email" placeholder="Admin Email (required)" class="form-control" name="email" data-ng-model="pageController.email" data-ng-change="pageController.resetValidateButton()" required>
-                                                        </div>
-                                                        <div>
-                                                            <p ng-hide="pageController.emailExists" style="color:green">Email available</p>
-                                                            <p ng-show="pageController.emailExists || pageController.emailExists==null" style="color:red">{{pageController.errorMsgEmail}}</p>
+                                                            <p ng-show="pageController.errorPassword !== undefined" style="color:red">{{pageController.errorPassword}}</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -221,7 +231,7 @@
                                         <div class="pull-right">
                                             <input type="button" class="btn btn-fill btn-rose btn-wd" name="validate" value="Validate" data-ng-click="pageController.validateForm()" ng-show="pageController.validateButtonEnabled">
                                             <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next" data-ng-click="pageController.nextSignUpSection()" ng-show="pageController.nextButtonEnabled">
-                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;">
+                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" data-ng-click="pageController.registerBusinessWithAdminUser()" style="display: none;">
                                         </div>
                                         <div class="pull-left">
                                             <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous" data-ng-click="pageController.previousSection()">

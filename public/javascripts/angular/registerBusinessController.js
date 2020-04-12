@@ -3,14 +3,19 @@ app.controller('registerBusinessController', function($http, $window) {
     console.log("Attached JS: registerBusinessController");
 
     var pageCtrl = this;
-    pageCtrl.businessName = null;
-    pageCtrl.phoneNumber = null;
-    pageCtrl.websiteLink = null;
+    pageCtrl.businessName = undefined;
+    pageCtrl.phoneNumber = undefined;
+    pageCtrl.websiteLink = undefined;
 
-    pageCtrl.username = null;
-    pageCtrl.password = null;
-    pageCtrl.confirmPassword = null;
-    pageCtrl.email = null;
+    pageCtrl.username = undefined;
+    pageCtrl.password = undefined;
+    pageCtrl.confirmPassword = undefined;
+    pageCtrl.email = undefined;
+
+    pageCtrl.city = undefined;
+    pageCtrl.country = undefined;
+    pageCtrl.zip5 = undefined;
+    pageCtrl.state = undefined;
 
     pageCtrl.nextButtonEnabled = false;
     pageCtrl.validateButtonEnabled = true;
@@ -24,22 +29,26 @@ app.controller('registerBusinessController', function($http, $window) {
     pageCtrl.errorMsg = "";
     pageCtrl.errorMsgUserName = "";
     pageCtrl.errorMsgEmail = "";
-
+    pageCtrl.errorPassword = undefined;
     pageCtrl.step = 1;
+
+    pageCtrl.errorCityMsg = undefined;
+    pageCtrl.errorStateMessage = undefined;
+    pageCtrl.errorZip5 = undefined;
 
     pageCtrl.setStep = function(step){
         pageCtrl.step = step;
     };
 
     pageCtrl.nextSignUpSection = function () {
-        if(pageCtrl.step === 1 && pageCtrl.businessName !== null && pageCtrl.phoneNumber != null) {
+        if(pageCtrl.step === 1 && pageCtrl.businessName !== undefined && pageCtrl.phoneNumber !== undefined) {
             pageCtrl.resetValidateButton();
             pageCtrl.step = pageCtrl.step + 1;
-        } else if(pageCtrl.step === 2 && pageCtrl.username !== null && pageCtrl.password != null && pageCtrl.email != null && pageCtrl.confirmPassword != null) {
+        } else if(pageCtrl.step === 2 && pageCtrl.username !== undefined && pageCtrl.password !== undefined && pageCtrl.email !== undefined && pageCtrl.confirmPassword !== undefined) {
             pageCtrl.resetValidateButton();
             pageCtrl.step = pageCtrl.step + 1;
-        } else if(pageCtrl.step === 3 && pageCtrl.city !== null && pageCtrl.state != null && pageCtrl.zipCode != null && pageCtrl.country != null) {
             pageCtrl.validateButtonEnabled = false;
+        } else if(pageCtrl.step === 3 && pageCtrl.city !== undefined && pageCtrl.state !== undefined && pageCtrl.zipCode !== undefined && pageCtrl.country !== undefined) {
             // do nothing yet
         }
     };
@@ -49,7 +58,34 @@ app.controller('registerBusinessController', function($http, $window) {
         pageCtrl.step = pageCtrl.step - 1;
     };
 
-    pageCtrl.registerBusiness = function () {
+    pageCtrl.registerBusinessWithAdminUser = function () {
+            var data = {};
+            data.business = {};
+            data.business.name = pageCtrl.businessName;
+            data.business.city = pageCtrl.city;
+            data.business.state = pageCtrl.state;
+            data.business.country = pageCtrl.country;
+            data.user = {};
+            data.user.username = pageCtrl.username;
+            data.user.password = pageCtrl.confirmPassword;
+            data.user.email = pageCtrl.email;
+            data.user.isAdmin = true;
+
+            console.log(JSON.stringify(data));
+
+            $http({
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                url: '/businesses/signUp',
+                data: JSON.stringify(data),
+            }).then(function mySuccess() {
+                console.log("successfully created");
+            }, function myError() {
+                console.log("ERROR creating a trip");
+            })
+
 
     };
 
@@ -62,33 +98,83 @@ app.controller('registerBusinessController', function($http, $window) {
         pageCtrl.nextButtonEnabled = false;
     };
 
+    pageCtrl.setStepIfTabMenuClicked = function (tabName) {
+        if(tabName === 'About') {
+            pageCtrl.step = 1;
+        } else if(tabName === 'Account') {
+            pageCtrl.step = 2;
+        } else if (tabName === 'Location') {
+            pageCtrl.step = 3;
+        }
+    };
+
+    pageCtrl.businessInfoSection = 1;
+    pageCtrl.accountInfoSecion = 2;
+    pageCtrl.locationInfoSection = 3;
+
     pageCtrl.validateForm = function () {
         console.log("validate button pressed");
 
-        if(pageCtrl.step === 1) {
+        if(pageCtrl.step === pageCtrl.businessInfoSection) {
 
-            if(pageCtrl.businessName === undefined || pageCtrl.businessName === null) {
-                pageCtrl.errorMsg = "required field"
+            if(pageCtrl.businessName === undefined) {
+                pageCtrl.errorMsg = "*required field for validation"
             } else {
-                console.log("validating business name usage");
-                pageCtrl.validateBusinessName();
+                if(pageCtrl.isValidInput(pageCtrl.businessName)) {
+                    if(pageCtrl.digitsOnly(pageCtrl.businessName)) {
+                        pageCtrl.businessNameExists = true;
+                        pageCtrl.errorMsg = "*Invalid business name. Found digits only. It must be alphanumeric !"
+                    } else {
+                        console.log("validating business name");
+                        pageCtrl.validateBusinessName();
+                    }
+                } else {
+                    pageCtrl.businessNameExists = true;
+                    pageCtrl.errorMsg = "*Invalid business name. It must be alphanumeric !"
+                }
             }
 
-        } else if (pageCtrl.step === 2) {
+        } else if (pageCtrl.step === pageCtrl.accountInfoSecion) {
 
             console.log("step 2");
             console.log(pageCtrl.username);
             console.log(pageCtrl.email);
 
-            if(pageCtrl.username === null) pageCtrl.errorMsgUserName = "required field";
+            if(pageCtrl.username === undefined) pageCtrl.errorMsgUserName = "*required field for validation";
             else pageCtrl.errorMsgUserName = "";
 
-            if(pageCtrl.email === null) pageCtrl.errorMsgEmail = "required field";
+            if(pageCtrl.email === undefined) pageCtrl.errorMsgEmail = "*required field for validation";
             else pageCtrl.errorMsgEmail = "";
 
-            if(pageCtrl.username !== undefined && pageCtrl.username !== null && pageCtrl.email !== undefined && pageCtrl.email !== null) {
-                pageCtrl.validationsForUsernameEmailAndPassword();
+            if(pageCtrl.username !== undefined && pageCtrl.email !== undefined) {
+                if(pageCtrl.isValidUsername(pageCtrl.username)) {
+                    if(pageCtrl.digitsOnly(pageCtrl.username)) {
+                        pageCtrl.userNameExists = true;
+                        pageCtrl.errorMsgUserName = "*Invalid username. Found digits only. It must be alphanumeric !"
+                    } else {
+                        if(pageCtrl.isValidPassword(pageCtrl.confirmPassword)) {
+                            pageCtrl.errorPassword = undefined;
+                            var emailFormatGood = pageCtrl.validateEmailSyntax(pageCtrl.email);
+                            if (emailFormatGood) pageCtrl.validationsForUsernameEmailAndPassword();
+                            else pageCtrl.errorMsgEmail = "Email format is invalid!";
+                        } else {
+                            pageCtrl.errorPassword = "*Invalid password. at least 1 upper, 1 lower, 1 digit, 1 special char, and minimum 8 characters "
+                        }
+                    }
+                } else {
+                    pageCtrl.userNameExists = true;
+                    pageCtrl.errorMsgUserName = "*Invalid username. It must be alphanumeric and no spaces!"
+                }
             }
+        } else if (pageCtrl.step === pageCtrl.locationInfoSection) {
+            if(!pageCtrl.isValidAlphabetsOnlyData(pageCtrl.city)) {
+                pageCtrl.errorCityMsg = "*Invalid City. Alphabets only!!"
+            }
+
+            if(!pageCtrl.isValidAlphabetsOnlyData(pageCtrl.state)) {
+                pageCtrl.errorStateMessage = "*Invalid State. Alphabets only!!"
+            }
+
         }
     };
 
@@ -124,12 +210,12 @@ app.controller('registerBusinessController', function($http, $window) {
         }).then(function successCallback(response) {
             if(response.status === 200) {
                 pageCtrl.userNameExists = response.data.data;
-                console.log("user name exist " + pageCtrl.userNameExists);
+                console.log("username exists " + pageCtrl.userNameExists);
 
                 if(pageCtrl.userNameExists) {
                     pageCtrl.validateButtonEnabled = true;
                     pageCtrl.nextButtonEnabled = false;
-                    pageCtrl.errorMsgUserName = "username is used!"
+                    pageCtrl.errorMsgUserName = "*username has been used!"
                 } else {
                     pageCtrl.validateEmail();
                 }
@@ -152,7 +238,7 @@ app.controller('registerBusinessController', function($http, $window) {
                 if(pageCtrl.emailExists) {
                     pageCtrl.validateButtonEnabled = true;
                     pageCtrl.nextButtonEnabled = false;
-                    pageCtrl.errorMsgEmail = "email is used!"
+                    pageCtrl.errorMsgEmail = "*email is being used already!"
                 } else if(!pageCtrl.userNameExists && !pageCtrl.emailExists) {
                     pageCtrl.validateButtonEnabled = false;
                     pageCtrl.nextButtonEnabled = true;
@@ -199,6 +285,43 @@ app.controller('registerBusinessController', function($http, $window) {
         }, function errorCallback(response) {
             console.log("Request failed!!")
         });
+    };
+
+    pageCtrl.digitsOnly = function (data) {
+        return /^\d+$/.test(data);
+    };
+
+    pageCtrl.isValidInput = function (data) {
+        var regex = /^[A-Za-z0-9 ]+$/;
+        return regex.test(data);
+    };
+
+    pageCtrl.isValidUsername = function (username) {
+        return /^[a-zA-Z0-9\-_]{0,24}$/.test(username)
+    };
+
+    pageCtrl.isValidPassword = function (password) {
+        //     At least 1 uppercase character.
+        //     At least 1 lowercase character.
+        //     At least 1 digit.
+        //     At least 1 special character.
+        //     Minimum 8 characters.
+        return !!(password.match(/[a-z]/g) && password.match(/[A-Z]/g) && password.match(/[0-9]/g) && password.match(/[^a-zA-Z\d]/g) && password.length >= 8);
+    };
+
+    pageCtrl.validateEmailSyntax = function (mail) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) return true;
+        alert("You have entered an invalid email address!");
+        return false
+    };
+
+
+    pageCtrl.areThereSpecialCharacters = function (formValue) {
+        return /[^a-zA-Z0-9\-\/]/.test( formValue );
+    };
+
+    pageCtrl.isValidAlphabetsOnlyData = function (formValue) {
+        return /[^a-zA-Z\-\/]/.test(formValue);
     }
 
 

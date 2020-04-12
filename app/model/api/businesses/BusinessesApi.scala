@@ -17,7 +17,7 @@ class BusinessesApi(dbApi: DBApi) {
         if(transactionResult.nonEmpty) {
           val userRegisterTransaction = usersApi.register(newBusiness.user)
           if(userRegisterTransaction.nonEmpty)
-            Right(newBusiness.business.copy(id = transactionResult.get.toInt), userRegisterTransaction.get)
+            Right(newBusiness.business.copy(id = Some(transactionResult.get.toInt)), userRegisterTransaction.get)
           else Left("User registration failed")
         }
         else Left("Business Creation failed")
