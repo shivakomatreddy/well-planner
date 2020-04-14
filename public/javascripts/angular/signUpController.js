@@ -2,35 +2,34 @@ app.controller('signUpController', function($http, $window) {
 
     console.log("Attached JS: signUpController");
 
-    var pageCtrl = this;
-    pageCtrl.businessName = "";
-    pageCtrl.email = "";
-    pageCtrl.step = 1;
+    var pageController = this;
+    pageController.businessName = undefined;
+    pageController.email = undefined;
 
-
-    pageCtrl.setStep = function(step){
-        pageCtrl.step = step;
+    pageController.basicInfo = function() {
+        console.log("Inside basic Info");
+        pageController.validateEmail();
     };
 
-    pageCtrl.sectionName = "";
-
-    console.log("sectionName ->" + pageCtrl.sectionName);
-
-    pageCtrl.basicInfo = function () {
-        reDirectToRegisterPage();
+    pageController.validateEmail = function (email) {
+        $http({
+            method: 'GET',
+            url: '/users/email='+ email
+        }).then(function successCallback(response) {
+            if(response.status === 200) {
+                pageController.emailExists = response.data.data;
+                console.log("email  exist " + pageController.emailExists);
+                if(pageController.emailExists) {
+                    $window.location.href = "http://" + $window.location.host + "/"
+                } else {
+                    $window.location.href =
+                        "http://" + $window.location.host + "/register-business-user?businessName=" + pageController.businessName + "&email=" + pageController.email
+                }
+            }
+        }, function errorCallback(response) {
+            console.log("Request failed!!");
+        });
     };
 
-    function reDirectToRegisterPage() {
-        $window.location.href =
-            "http://" + $window.location.host + "/register-business-user?businessName=" + pageCtrl.firstname + "&email=" + pageCtrl.email
-    }
 
-    pageCtrl.nextSignUpSection = function () {
-        console.log("button next is clicked");
-        onNextSection();
-    };
-
-    function onNextSection() {
-        console.log(pageCtrl.sectionName)
-    }
 });

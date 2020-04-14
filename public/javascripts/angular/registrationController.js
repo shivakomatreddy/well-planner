@@ -23,8 +23,18 @@ app.controller('registerBusinessController', function($http, $window) {
         }
     };
 
+    function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+        });
+        return vars;
+    }
+
 
     pageController.initializeFormValidators = function () {
+        pageController.businessName = decodeURI(getUrlVars()['businessName']);
+        pageController.email = decodeURI(getUrlVars()['email']);
 
         $.validator.addMethod("alphanumericWithSpaces", function (value, element) {
             return this.optional(element) || wellPlannerValidators.isValidAlphanumericWithSpaces(value);
@@ -55,7 +65,7 @@ app.controller('registerBusinessController', function($http, $window) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            url: '/businesses/signUp',
+            url: '/businesses/signUp/',
             data: JSON.stringify(data),
         }).then(function mySuccess() {
             alert("successfully created");

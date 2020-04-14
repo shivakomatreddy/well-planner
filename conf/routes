@@ -49,7 +49,8 @@ GET     /callback                   controllers.CallbackController.callback(code
 
 
 # REST API Routes
-POST    /businesses/signUp                 controllers.BusinessController.registerNewBusiness()
+POST    /businesses/signUp                 controllers.BusinessController.registerNewBusiness
+
 GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 
