@@ -5,8 +5,9 @@ import model.dataModels.{Business, User}
 import model.databases.BusinessesDb
 import play.api.db.DBApi
 import org.joda.time.DateTime
+import play.api.libs.ws.WSClient
 
-class BusinessesApi(dbApi: DBApi) {
+class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
   val businessesDb: BusinessesDb =  new BusinessesDb(dbApi)
   val usersApi: UsersApi = new UsersFacade(dbApi)
@@ -21,7 +22,7 @@ class BusinessesApi(dbApi: DBApi) {
         val transactionResult = businessesDb.addNewBusiness(business)
 
         if(transactionResult.nonEmpty) {
-          val user = User(username = "test", password = newBusiness.password, email = newBusiness.email, businessId = transactionResult.get.toInt)
+          val user = User(username = newBusiness.email, userAuth0Id = newBusiness.userAuth0Id, password = "", email = newBusiness.email, businessId = transactionResult.get.toInt)
           val userRegisterTransaction = usersApi.register(user)
           if(userRegisterTransaction.nonEmpty)
             Right(business.copy(id = Some(transactionResult.get.toInt)), userRegisterTransaction.get)

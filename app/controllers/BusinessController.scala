@@ -9,14 +9,15 @@ import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.ws.WSClient
 
 import scala.concurrent.Future
 
-class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents) extends AbstractController(cc) {
+class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
 
   private val logger = Logger(this.getClass)
 
-  private val businessesApi = new BusinessesApi(dbApi)
+  private val businessesApi = new BusinessesApi(dbApi, ws)
 
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))

@@ -54,26 +54,59 @@ app.controller('registerBusinessController', function($http, $window) {
     };
 
     pageController.completeRegistration = function () {
+        console.log("Inside Complete Registration Page");
+
         var data = {};
         data.businessName = pageController.businessName;
         data.password = pageController.password;
         data.email = pageController.email;
         data.phoneNumber = pageController.phoneNumber;
 
+        console.log(JSON.stringify(data));
+
         $http({
-            method: 'POST',
-            headers: {
+            'crossDomain': true,
+            'url': 'https://wellplanner.auth0.com/dbconnections/signup',
+            'method': 'POST',
+            'headers': {
                 'Content-Type': 'application/json'
             },
+            'data': {
+                'client_id': 'BOjjaXe3n0T0TdfeCflTmT9i6ZrZiB9f',
+                'email': pageController.email,
+                'password': pageController.password,
+                'connection': 'well-planner-users',
+                'name': pageController.businessName,
+                'user_metadata': {'color': 'red'}
+            }
+        }).then(function successCallback(response) {
+            console.log(response.data);
+            var newBusiness =  {};
+            newBusiness.email = response.data.email;
+            newBusiness.password = data.password;
+            newBusiness.businessName = data.businessName;
+            newBusiness.phoneNumber = data.phoneNumber;
+            newBusiness.userAuth0Id = data.id;
+            console.log(newBusiness);
+            pageController.signUpBusiness(newBusiness);
+        }, function errorCallback(response) {
+            alert("ERROR")
+        });
+    };
+
+
+    pageController.signUpBusiness = function (newBusiness) {
+        $http({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             url: '/businesses/signUp/',
-            data: JSON.stringify(data),
+            data: newBusiness,
         }).then(function mySuccess() {
-            alert("successfully created");
+            alert("Registered")
         }, function myError() {
             alert("ERROR registering");
         })
     };
-
 
     pageController.validateEmail = function (email) {
         $http({
