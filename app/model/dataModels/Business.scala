@@ -1,6 +1,4 @@
 package model.dataModels
 
-import org.joda.time.DateTime
-
-case class Business(id: Option[Int] = None, name: String, city: String, state: String,
-                    country: String, modifiedDate: DateTime = null, createdDate: DateTime= null)
+case class Business(id: Option[Int] = None, name: String, city: String, state: String, phone_number: String,
+                    country: String, modified_date: Int, created_date: Int)

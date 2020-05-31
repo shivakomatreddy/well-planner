@@ -3,14 +3,13 @@ package controllers
 import com.google.inject.Inject
 import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes._
-import model.api.businesses.{AdminSignUpMessage, BusinessesApi, NewBusinessSignupMessage}
+import model.api.businesses.{AdminSignUpMessage, BusinessesApi}
 import play.api.Logger
 import play.api.db.DBApi
-import play.api.libs.json.{JsValue, Json}
-import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
-
+import play.api.mvc._
 import scala.concurrent.Future
 
 class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
@@ -24,21 +23,23 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
 
   def registerNewBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
 
-    def apiRegister(newBusiness: AdminSignUpMessage): Future[Result] = {
+    println("Register new business request accepted ")
+
+    def logForSuccess(data: String) =
+      logger.info(s"Successfully registered \n user details follow : \n { $data } ")
+
+    def apiRegister(newBusiness: AdminSignUpMessage): Future[Result] =
       businessesApi.signUpBusiness(newBusiness) match {
         case Right(data) =>
-          logger.info(s"Successfully registered \n user details follow : \n { ${Json.toJson(data).toString} } ")
+          logForSuccess(Json.toJson(data).toString)
           Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully registered ${data._1.name}")))
-        case Left(failure) => Future.successful(errorResponse(FOUND, Seq(s"Error: $failure")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
       }
-    }
 
     request.body.validate[AdminSignUpMessage].fold(
       errors => badRequest,
-      payload => {
-        println(payload.toString)
-        apiRegister(payload)
-      }
+      payload => apiRegister(payload)
     )
   }
 

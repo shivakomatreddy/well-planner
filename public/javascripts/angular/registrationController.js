@@ -53,6 +53,7 @@ app.controller('registerBusinessController', function($http, $window) {
         }, "Email address is taken!!");
     };
 
+
     pageController.completeRegistration = function () {
         console.log("Inside Complete Registration Page");
 
@@ -62,7 +63,7 @@ app.controller('registerBusinessController', function($http, $window) {
         data.email = pageController.email;
         data.phoneNumber = pageController.phoneNumber;
 
-        console.log(JSON.stringify(data));
+        console.log("incoming data -> " + JSON.stringify(data));
 
         $http({
             'crossDomain': true,
@@ -80,33 +81,32 @@ app.controller('registerBusinessController', function($http, $window) {
                 'user_metadata': {'color': 'red'}
             }
         }).then(function successCallback(response) {
-            console.log(response.data);
             var newBusiness =  {};
             newBusiness.email = response.data.email;
             newBusiness.password = data.password;
             newBusiness.businessName = data.businessName;
-            newBusiness.phoneNumber = data.phoneNumber;
-            newBusiness.userAuth0Id = data.id;
+            newBusiness.phoneNumber = data.phoneNumber.toString();
+            newBusiness.auth0Id = response.data._id;
+
             console.log(newBusiness);
-            pageController.signUpBusiness(newBusiness);
+
+            $http({
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                url: '/businesses/signUp',
+                data: newBusiness,
+            }).then(function mySuccess() {
+                $window.location.href =
+                    "http://" + $window.location.host + "/pages/dashboard"
+            }, function myError() {
+                alert("Internal Registration Error!!");
+            })
+
         }, function errorCallback(response) {
-            alert("ERROR")
+            alert("Authentication Registration Error!!")
         });
     };
 
-
-    pageController.signUpBusiness = function (newBusiness) {
-        $http({
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            url: '/businesses/signUp/',
-            data: newBusiness,
-        }).then(function mySuccess() {
-            alert("Registered")
-        }, function myError() {
-            alert("ERROR registering");
-        })
-    };
 
     pageController.validateEmail = function (email) {
         $http({

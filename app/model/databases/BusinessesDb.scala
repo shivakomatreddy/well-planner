@@ -12,12 +12,13 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
   val parser: RowParser[Business] = Macro.namedParser[Business]
 
   override def addNewBusiness(business: Business): Option[Long] = {
+    println("Adding new Business insert statement")
     db.withConnection { implicit connection =>
-      SQL("insert into businesses(name , city , state, country, modifiedDate, createdDate) " +
-        "values ({name} , {city} , {state}, {country}, {modifiedDate}, {createdDate})")
-        .on("name"  -> business.name, "city" -> business.city, "state" -> business.state,
-          "country" -> business.country, "modifiedDate" -> business.modifiedDate,
-          "createdDate" -> business.createdDate)
+      SQL("insert into businesses(id, name , city , phone_number, state, country, modified_date, created_date) " +
+        "values ({id}, {name} , {city} , {phone_number}, {state}, {country}, {modified_date}, {created_date})")
+        .on("id" -> 1, "name"  -> business.name, "city" -> business.city,
+          "phone_number" -> business.phone_number, "state" -> business.state, "country" -> business.country,
+          "modified_date" -> business.modified_date, "created_date" -> business.created_date)
         .executeInsert()
     }
   }
@@ -37,6 +38,5 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
   def existsByName(businessName: String): Boolean = {
     find(businessName).nonEmpty
   }
-
 
 }

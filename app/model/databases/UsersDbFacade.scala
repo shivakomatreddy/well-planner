@@ -54,21 +54,22 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
       SQL("select * from users").as(parser.*)
     }
 
-  override def add(u: User): Option[User] =
+  override def add(u: User): Option[User] = {
     db.withConnection { implicit connection =>
-      if(findByUsername(u.username).isEmpty) {
-        SQL("insert into users(username, password, loggedIn, email, businessId, isAdmin, isCustomer, " +
-                   "isAnEmployee, modifiedDate, createdDate) " +
-           "values ({username}, {password}, {loggedIn}, {email}, {businessId}, " +
-                   "{isAdmin}, {isCustomer}, {isAnEmployee}, {modifiedDate}, {createdDate})")
-          .on("username" -> u.username, "password" -> u.password, "loggedIn" -> u.loggedIn, "email" -> u.email,
-                    "businessId" -> u.businessId + "isAdmin" -> u.isAdmin, "isCustomer" -> u.isCustomer,
-                    "isAnEmployee" -> u.isAnEmployee + "modifiedDate" -> u.modifiedDate + "createdDate" -> u.createdDate)
-          .executeInsert()
-        find(u.username, u.password)
-      }
-      else None
+      println("adding a new user")
+
+      SQL("insert into users(id, logged_in, user_auth_0_id, username, password, email, business_id, is_admin, is_customer, is_an_employee, modified_date, created_date) " +
+                 "values ({id}, {logged_in}, {user_auth_0_id}, {username}, {password}, {email}, {business_id}, {is_admin}, {is_customer}, {is_an_employee}, {modified_date}, {created_date})")
+        .on("id" -> 1, "logged_in" -> u.logged_in, "user_auth_0_id" -> u.user_auth_0_id, "username" -> u.username, "password" -> u.password,  "email" -> u.email,
+          "business_id" -> 1, "is_admin" -> u.is_admin, "is_customer" -> u.is_customer, "is_an_employee" -> u.is_an_employee,
+          "modified_date" -> u.modified_date, "created_date" -> u.created_date)
+        .executeInsert()
+      println("execution completed")
+      find(u.username, u.password)
     }
+  }
+
+
 
   override def delete(username: String, password: String): Option[String] =
     db.withConnection { implicit connection =>
