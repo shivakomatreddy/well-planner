@@ -58,11 +58,10 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
     db.withConnection { implicit connection =>
       println("adding a new user")
 
-      SQL("insert into users(id, logged_in, user_auth_0_id, username, password, email, business_id, is_admin, is_customer, is_an_employee, modified_date, created_date) " +
-                 "values ({id}, {logged_in}, {user_auth_0_id}, {username}, {password}, {email}, {business_id}, {is_admin}, {is_customer}, {is_an_employee}, {modified_date}, {created_date})")
-        .on("id" -> 1, "logged_in" -> u.logged_in, "user_auth_0_id" -> u.user_auth_0_id, "username" -> u.username, "password" -> u.password,  "email" -> u.email,
-          "business_id" -> 1, "is_admin" -> u.is_admin, "is_customer" -> u.is_customer, "is_an_employee" -> u.is_an_employee,
-          "modified_date" -> u.modified_date, "created_date" -> u.created_date)
+      SQL("insert into users(logged_in, user_auth_0_id, username, password, email, business_id, is_admin, is_customer, is_an_employee, modified_date, created_date) " +
+                 "values ({logged_in}, {user_auth_0_id}, {username}, {password}, {email}, {business_id}, {is_admin}, {is_customer}, {is_an_employee}, {modified_date}, {created_date})")
+        .on("logged_in" -> u.logged_in, "user_auth_0_id" -> u.user_auth_0_id, "username" -> u.username, "password" -> u.password,  "email" -> u.email,
+          "business_id" -> u.business_id, "is_admin" -> u.is_admin, "is_customer" -> u.is_customer, "is_an_employee" -> u.is_an_employee, "modified_date" -> u.modified_date, "created_date" -> u.created_date)
         .executeInsert()
       println("execution completed")
       find(u.username, u.password)

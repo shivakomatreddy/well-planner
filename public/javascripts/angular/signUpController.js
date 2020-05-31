@@ -1,7 +1,5 @@
 app.controller('signUpController', function($http, $window) {
 
-    console.log("Attached JS: signUpController");
-
     var pageController = this;
     pageController.businessName = undefined;
     pageController.email = undefined;
@@ -19,17 +17,19 @@ app.controller('signUpController', function($http, $window) {
             if(response.status === 200) {
                 pageController.emailExists = response.data.data;
                 console.log("email  exist " + pageController.emailExists);
-                if(pageController.emailExists) {
-                    $window.location.href = "http://" + $window.location.host + "/"
-                } else {
-                    $window.location.href =
-                        "http://" + $window.location.host + "/register-business-user?businessName=" + pageController.businessName + "&email=" + pageController.email
+                if(!pageController.emailExists) {
+                    if($window.location.hostname === 'localhost') {
+                        $window.location.href =
+                            "http://" + $window.location.host +"/register-business-user?businessName=" + pageController.businessName + "&email=" + pageController.email
+                    } else {
+                        $window.location.href =
+                            "http://" + $window.location.hostname +"/register-business-user?businessName=" + pageController.businessName + "&email=" + pageController.email
+                    }
                 }
             }
         }, function errorCallback(response) {
             console.log("Request failed!!");
         });
     };
-
 
 });
