@@ -5,7 +5,6 @@ import model.api.businesses.UsernameAndEmailCheckMessage
 import model.dataModels.User
 import model.databases.{UsersDbApi, UsersDbFacade}
 import play.api.db.DBApi
-import scala.math.Ordering.BooleanOrdering
 
 @javax.inject.Singleton
 class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
@@ -45,5 +44,9 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
   override def remove(userMessage: UserMessage): Option[String] =
     db delete(userMessage.username, userMessage.password)
+
+
+  override def byAuth0Id(id: String): Option[User] =
+    db byAuth0Id(id)
 
 }

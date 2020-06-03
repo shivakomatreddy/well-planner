@@ -6,7 +6,6 @@ import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
 import model.dataModels.User
 import play.api.db.DBApi
-import model.tools.AnormExtension._
 
 @javax.inject.Singleton
 class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with UsersDbApi {
@@ -34,9 +33,18 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
         .as(parser.singleOpt)
     }
 
+
   override def userNameExists(username: String): Boolean = {
     db.withConnection { implicit connection =>
       findByUsername(username).nonEmpty
+    }
+  }
+
+  override def byAuth0Id(auth0Id: String): Option[User] = {
+    db.withConnection { implicit connection =>
+      SQL("select * from users where user_auth_0_id = {user_auth_0_id}")
+        .on("user_auth_0_id" -> auth0Id)
+        .as(parser.singleOpt)
     }
   }
 
@@ -64,10 +72,9 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
           "business_id" -> u.business_id, "is_admin" -> u.is_admin, "is_customer" -> u.is_customer, "is_an_employee" -> u.is_an_employee, "modified_date" -> u.modified_date, "created_date" -> u.created_date)
         .executeInsert()
       println("execution completed")
-      find(u.username, u.password)
+      byAuth0Id(u.user_auth_0_id)
     }
   }
-
 
 
   override def delete(username: String, password: String): Option[String] =

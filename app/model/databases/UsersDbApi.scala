@@ -1,5 +1,6 @@
 package model.databases
 
+import model.api.users.NewUserMessage
 import model.dataModels.User
 
 trait UsersDbApi  {
@@ -11,6 +12,8 @@ trait UsersDbApi  {
   def find(username: String, password: String): Option[User]
 
   def userNameExists(username: String): Boolean
+
+  def byAuth0Id(auth0Id: String): Option[User]
 
   def emailExists(email: String): Boolean
 

@@ -1,9 +1,8 @@
 package controllers
 
-import javax.inject._
+import javax.inject.{Inject, _}
+import play.api.libs.json.JsNull
 import play.api.mvc._
-import javax.inject.Inject
-import play.api.libs.json.JsValue
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -37,7 +36,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def mainDashboard = Action {
-    Ok(views.html.mainDashboard("Main Dashboard"))
+    Ok(views.html.mainDashboard(JsNull, 3))
   }
 
   def settingsPage = Action {

@@ -14,7 +14,6 @@ GET     /pages/tasks                controllers.HomeController.projectTasks
 GET     /pages/settings             controllers.HomeController.settingsPage
 GET     /pages/budget               controllers.HomeController.projectBudgetPage
 GET     /pages/projects             controllers.HomeController.projectsPages
-GET     /pages/dashboard            controllers.HomeController.mainDashboard
 GET     /pages/customers            controllers.HomeController.customerPage
 GET     /pages/invoices             controllers.HomeController.invoicesPage
 GET     /pages/vendors              controllers.HomeController.vendors
@@ -22,8 +21,8 @@ GET     /pages/calendar             controllers.HomeController.businessCalendar
 
 GET     /pages/login                controllers.HomeController.loginPage
 
-# Profile Controller
-GET     /profile-page               controllers.ProfileController.profilePage
+GET     /pages/profile             controllers.ProfileController.profilePage
+GET     /pages/dashboard           controllers.HomeController.mainDashboard
 
 
 # User Data API Routes

@@ -21,4 +21,6 @@ trait UsersApi {
 
   def remove(userMessage: UserMessage): Option[String]
 
+  def byAuth0Id(id: String): Option[User]
+
 }
