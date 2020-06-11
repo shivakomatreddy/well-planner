@@ -42,7 +42,7 @@ class ApplicationController @Inject() (cache: DefaultSyncCacheApi, configuration
     if (request.secure) {
       scheme = "https"
     }
-    val returnTo = scheme + "://" + host
+    val returnTo = scheme + "://" + host + "/assets/rubik-presentation-site/well-planner.html"
     Redirect(String.format(
       "https://%s/v2/logout?client_id=%s&returnTo=%s",
       config.domain,
