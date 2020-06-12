@@ -26,7 +26,8 @@ GET     /pages/dashboard           controllers.HomeController.mainDashboard
 
 
 # User Data API Routes
-
++nocsrf
+POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
 
 #
 
