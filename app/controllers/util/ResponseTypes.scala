@@ -22,6 +22,9 @@ object ResponseTypes {
   def successResponse(status: Int, data: JsValue, messages: Seq[String]): Result =
     new Status(status)(obj( "data" -> data, "msg" -> messages.mkString(",")))
 
+  def successResponseWithId(status: Int, data: Long, messages: Seq[String]): Result =
+    new Status(status)(obj( "data" -> data, "msg" -> messages.mkString(",")))
+
   def successBooleanResponse(status: Int, data: Boolean, messages: Seq[String]): Result =
     new Status(status)(obj( "data" -> data, "msg" -> messages.mkString(",")))
 
