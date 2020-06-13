@@ -25,36 +25,33 @@ GET     /pages/profile             controllers.ProfileController.profilePage
 GET     /pages/dashboard           controllers.HomeController.mainDashboard
 
 
-# User Data API Routes
+# REST API Routes for data
+
+# # Projects
 +nocsrf
 POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
 
-#
+# # Clients
++nocsrf
+POST   /businesses/clients           controllers.ClientsController.newClient
 
 
-# examples
-GET     /count                      controllers.CountController.count
-GET     /message                    controllers.AsyncController.message
-
-
-# assets
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-
-
-#  User Login system
+# # User Login system
 GET     /login                      controllers.ApplicationController.login
 GET     /logout                     controllers.ApplicationController.logout
 GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
 
 
-# REST API Routes
-
+# # Businesses
 +nocsrf
 POST    /businesses/signUp                 controllers.BusinessController.registerNewBusiness
-
 GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 
+# # Users
 GET     /users/:username                  controllers.UsersController.usernameExists(username)
 GET     /users/:email                  controllers.UsersController.usernameExists(email)
+
+
+# assets
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

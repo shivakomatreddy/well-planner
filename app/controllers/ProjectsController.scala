@@ -44,7 +44,4 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
 
   }
 
-
-
-
 }

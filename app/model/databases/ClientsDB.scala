@@ -13,15 +13,21 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi)  {
 
   def addNewClient(client: Client): Option[Long] = {
     db.withConnection { implicit connection =>
-      SQL("insert into clients(name , eventType , email, notes, budget, status, businessId, modifiedDate, createdDate) " +
-        "values ({name} , {city} , {state}, {country}, {modifiedDate}, {createdDate})")
-        .on("name"  -> client.name, "eventType" -> client.eventType, "email" -> client.email,
-          "notes" -> client.notes, "budget" -> client.budget, "status" -> client.status,
-          "modifiedDate" -> client.modifiedDate, "createdDate" -> client.createdDate)
+      SQL("insert into clients(name , event_type , email, notes, budget, status, business_id, modified_date, created_date) " +
+        "values ({name} , {event_type} , {email}, {notes}, {budget}, {status}, {business_id}, {modified_date}, {created_date})")
+        .on("name"  -> client.name, "event_type" -> client.event_type, "email" -> client.email,
+          "notes" -> client.notes, "budget" -> client.budget, "status" -> client.status, "business_id" -> client.business_id,
+          "modified_date" -> client.modified_date, "created_date" -> client.created_date)
         .executeInsert()
     }
   }
 
+  def byId(clientId: Long): Option[Client] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from clients where id = {clientId}")
+        .on("clientId" -> clientId)
+        .as(parser.singleOpt)
+    }
 
   def list(): Seq[Client] =
     db.withConnection { implicit connection =>
@@ -29,4 +35,3 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi)  {
     }
 
 }
-

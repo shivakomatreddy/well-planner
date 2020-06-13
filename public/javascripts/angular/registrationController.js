@@ -2,11 +2,11 @@ app.controller('registerBusinessController', function($http, $window) {
 
     var pageController = this;
 
-    pageController.businessName = undefined;
-    pageController.phoneNumber = undefined;
+    pageController.businessName = "";
+    pageController.phoneNumber = "";
 
-    pageController.password = undefined;
-    pageController.email = undefined;
+    pageController.password = "";
+    pageController.email = "";
 
 
     $(document).ready(function() {
@@ -33,8 +33,8 @@ app.controller('registerBusinessController', function($http, $window) {
 
 
     pageController.initializeFormValidators = function () {
-        pageController.businessName = decodeURI(getUrlVars()['businessName']);
-        pageController.email = decodeURI(getUrlVars()['email']);
+        // pageController.businessName = decodeURI(getUrlVars()['businessName']);
+        // pageController.email = decodeURI(getUrlVars()['email']);
 
         $.validator.addMethod("alphanumericWithSpaces", function (value, element) {
             return this.optional(element) || wellPlannerValidators.isValidAlphanumericWithSpaces(value);
@@ -63,7 +63,7 @@ app.controller('registerBusinessController', function($http, $window) {
         data.email = pageController.email;
         data.phoneNumber = pageController.phoneNumber;
 
-        console.log("incoming data -> " + JSON.stringify(data));
+        // console.log("incoming data -> " + JSON.stringify(data));
 
         $http({
             'crossDomain': true,
@@ -88,7 +88,7 @@ app.controller('registerBusinessController', function($http, $window) {
             newBusiness.phoneNumber = data.phoneNumber.toString();
             newBusiness.auth0Id = response.data._id;
 
-            console.log(newBusiness);
+            // console.log(newBusiness);
 
             $http({
                 method: 'POST',
