@@ -10,7 +10,18 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
 
   private val clientsDb = new ClientsDB(dbApi)
 
-  private val LeadStatus = "LEAD"
+  object ClientStatuses {
+    val New = "New"
+    val FollowedUp = "Followed Up"
+    val ConsultationScheduled = "Consultation Scheduled"
+    val ProposalSent = "Proposal Sent"
+    val ProposalAccepted = "Proposal Accepted"
+    val ContractSent = "Contract Sent"
+    val ContractAccepted = "Contract Accepted"
+    val Booked = "Booked"
+    val Lost = "Lost"
+  }
+
 
   def addNewClient(newClientMessage: NewClientMessage): Either[String, Client] = {
 
@@ -20,9 +31,9 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
         email = Some(newClientMessage.emailAddress),
         notes = Some(newClientMessage.notes),
         budget = Some(newClientMessage.budget),
-        status = Some(LeadStatus),
+        status = Some(ClientStatuses.New),
         business_id = newClientMessage.businessId,
-        modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
+        modified_date = DateTimeNow.getCurrent, created_date = Some(DateTimeNow.getCurrent))
     )
 
     val newClient =
@@ -36,6 +47,44 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     else
       Left("Failed during database insertion or reading the newly created data")
 
+  }
+
+
+  def updateClientsBasicInfo(updateClientMessage: UpdatedClientMessage): Either[String, Client] = {
+    val updatedRows = clientsDb.updateBasicClientInfo(
+      Client(id = Some(updateClientMessage.clientId),
+             name = Some(updateClientMessage.customerName),
+             email = Some(updateClientMessage.emailAddress),
+             budget = Some(updateClientMessage.budget),
+             status = Some(updateClientMessage.status),
+             business_id = updateClientMessage.businessId,
+             modified_date = DateTimeNow.getCurrent)
+    )
+
+    if(updatedRows == 1) {
+      val updatedClient = clientsDb.byId(updateClientMessage.clientId)
+      Right(updatedClient.get)
+    } else
+      Left("Failed during database update or reading the update client data back from database")
+  }
+
+  def updateClientsNotes(clientId: Int, businessId: Int, newNote: String): Either[String, Client] = {
+    val rowsUpdated = clientsDb.updateClientNotes(clientId, businessId, newNote, DateTimeNow.getCurrent)
+    if(rowsUpdated == 1) {
+      Right(clientsDb.byId(clientId).get)
+    } else {
+      Left("Failed during database update")
+    }
+  }
+
+
+  def allClientsByBusiness(businessId: Int): Seq[Client] =
+    clientsDb.list().filter(_.business_id == businessId)
+
+
+  def deleteClientById(clientId: Int, businessId: Int): Seq[Client] = {
+    val rowsDeleted = clientsDb.deleteByClientIdAndBusinessId(clientId, businessId)
+    clientsDb.list()
   }
 
 }

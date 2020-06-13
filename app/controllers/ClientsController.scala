@@ -1,15 +1,16 @@
 package controllers
 
 import com.google.inject.Inject
-import controllers.util.JsonFormats._
+import controllers.util.JsonFormats.updatedClientMessage
+import controllers.util.JsonFormats.newClientMessage
+import controllers.util.JsonFormats.clientFormat
 import controllers.util.ResponseTypes.{errorResponse, successResponse}
-import model.api.clients.{ClientsApi, NewClientMessage}
+import model.api.clients.{ClientsApi, NewClientMessage, UpdatedClientMessage}
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
-
 import scala.concurrent.Future
 
 class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
@@ -25,13 +26,13 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
   def newClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
-    println("Register new client request accepted ")
+    println("A new client request accepted ")
 
     def createClient(newClient: NewClientMessage): Future[Result] =
       clientsApi.addNewClient(newClient) match {
         case Right(data) =>
           logForSuccess(Json.toJson(data).toString)
-          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully registered ${data.name}")))
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully created client ${data.name}")))
         case Left(errorMsg) =>
           Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
       }
@@ -40,8 +41,32 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
       errors => badRequest,
       payload => createClient(payload)
     )
+  }
 
+  def updateClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updated client request accepted")
+
+    def createClient(client: UpdatedClientMessage): Future[Result] =
+      clientsApi.updateClientsBasicInfo(client) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update client ${data.name}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[UpdatedClientMessage].fold(
+      errors => badRequest,
+      payload => createClient(payload)
+    )
+  }
+
+  def businessClients(businessId: Int) =  Action {
+    successResponse(OK, Json.toJson(clientsApi.allClientsByBusiness(businessId)), Seq("Successfully processed"))
+  }
+
+  def deleteClientById(clientId: Int, businessId: Int) = Action {
+    successResponse(OK, Json.toJson(clientsApi.deleteClientById(clientId, businessId)), Seq("Successfully processed"))
   }
 
 }
-

@@ -24,7 +24,6 @@ GET     /pages/login                controllers.HomeController.loginPage
 GET     /pages/profile             controllers.ProfileController.profilePage
 GET     /pages/dashboard           controllers.HomeController.mainDashboard
 
-
 # REST API Routes for data
 
 # # Projects
@@ -32,8 +31,12 @@ GET     /pages/dashboard           controllers.HomeController.mainDashboard
 POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
 
 # # Clients
+GET    /businesses/clients/:businessId  controllers.ClientsController.businessClients(businessId: Int)
+
 +nocsrf
 POST   /businesses/clients           controllers.ClientsController.newClient
+POST   /businesses/clients/update    controllers.ClientsController.updateClient
+DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.deleteClientById(clientId: Int, businessId : Int)
 
 
 # # User Login system
