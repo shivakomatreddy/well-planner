@@ -52,7 +52,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def customerPage = Action {
-    Ok(views.html.customers("Customers"))
+    Ok(views.html.customers("Customers", 6))
   }
 
   def invoicesPage = Action {

@@ -13,9 +13,9 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
 
   def addNewClient(client: Client): Option[Long] = {
     db.withConnection { implicit connection =>
-      SQL("insert into clients(name , event_type , email, notes, budget, status, business_id, modified_date, created_date) " +
-        "values ({name} , {event_type} , {email}, {notes}, {budget}, {status}, {business_id}, {modified_date}, {created_date})")
-        .on("name"  -> client.name, "event_type" -> client.event_type, "email" -> client.email,
+      SQL("insert into clients(name , event_type , phone_number, email, notes, budget, status, business_id, modified_date, created_date) " +
+        "values ({name} , {event_type} , {phone_number}, {email}, {notes}, {budget}, {status}, {business_id}, {modified_date}, {created_date})")
+        .on("name"  -> client.name, "phone_number" -> client.phone_number, "event_type" -> client.event_type, "email" -> client.email,
           "notes" -> client.notes, "budget" -> client.budget, "status" -> client.status, "business_id" -> client.business_id,
           "modified_date" -> client.modified_date, "created_date" -> client.created_date)
         .executeInsert()
@@ -25,9 +25,9 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
   def updateBasicClientInfo(updateClient: Client): Int =
     db.withConnection { implicit connection =>
       SQL("update clients set name = {name}, email = {email}," +
-        " budget = {budget}, status = {status}, modified_date = {modified_date}" +
+        " phone_number = {phone_number}, budget = {budget}, status = {status}, modified_date = {modified_date}" +
         " where id = {client_id} and business_id = {business_id}")
-        .on("name" -> updateClient.name, "email" -> updateClient.email, "budget" -> updateClient.budget, "status" -> updateClient.status,
+        .on("name" -> updateClient.name, "email" -> updateClient.email,"phone_number" -> updateClient.phone_number, "budget" -> updateClient.budget, "status" -> updateClient.status,
           "modified_date" -> updateClient.modified_date, "business_id" -> updateClient.business_id, "client_id" -> updateClient.id)
         .executeUpdate()
     }

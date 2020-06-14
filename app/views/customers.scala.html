@@ -1,15 +1,15 @@
-@(message: String)
+@(message: String, businessId: Int)
 
 @main("Well Planner", "customers", "Clients") {
     <!-- New Project Modal -->
-    <div class="modal fade" id="newCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="newCustomer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-ng-controller="clientsController as controller">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Add Client</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">New Client</h5>
                 </div>
                 <div class="modal-body">
                     <form>
@@ -26,7 +26,11 @@
                             <input type="email" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Budget</label>
+                            <label for="exampleFormControlInput1">Project Name</label>
+                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1">Client's Budget</label>
                             <input type="number" class="form-control">
                         </div>
                         <div class="form-group">
@@ -41,17 +45,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">ADD</button>
+                    <button type="submit" class="btn btn-primary" data-ng-click="controller.creatNewClient()">Submit</button>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="content">
+    <div class="content" data-ng-controller="clientsController as controller" data-ng-init="controller.getAllClients(@businessId)">
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newCustomer">New Client</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer">New Client</button>
             </div>
         </div>
         <div class="row">
@@ -63,16 +67,17 @@
                                 <tr>
                                     <th class="text-center">#</th>
                                     <th class="text-center"></th>
-                                    <th class="text-center">Client Name</th>
+                                    <th class="text-center">Name</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Email Address</th>
-                                    <th class="text-center">Budge Estimated</th>
+                                    <th class="text-center">Project</th>
+                                    <th class="text-center">Initial Budget</th>
                                     <th class="text-center">Notes</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody data-ng-repeat="client in controller.clients">
                                 <tr>
                                     <td class="text-center">1</td>
                                     <th class="text-center">
@@ -83,16 +88,17 @@
                                             </label>
                                         </div>
                                     </th>
-                                    <td class="text-center">Andrew Mike</td>
-                                    <td class="text-center">415-856-2433</td>
-                                    <td class="text-center">andrew.mike_gmail.com</td>
-                                    <td class="text-center">&euro; 50,000</td>
+                                    <td class="text-center">{{client.name}}</td>
+                                    <td class="text-center">{{client.phone_number}}</td>
+                                    <td class="text-center">{{client.email}}</td>
+                                    <td class="text-center">-</td>
+                                    <td class="text-center">{{client.budget | currency}}</td>
                                     <td class="td-actions text-center">
                                         <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </td>
-                                    <td class="text-center">Potential Lead</td>
+                                    <td class="text-center">{{client.status}}</td>
                                     <td class="td-actions text-right">
                                         <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
                                             <i class="fa fa-times"></i>
