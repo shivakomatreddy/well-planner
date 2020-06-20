@@ -7,7 +7,7 @@ import model.tools.AnormExtension._
 import play.api.db.DBApi
 
 @javax.inject.Singleton
-class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with ClientDBApi  {
+class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with ClientDBApi {
 
   val parser: RowParser[Client] = Macro.namedParser[Client]
 

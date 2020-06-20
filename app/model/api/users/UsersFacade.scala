@@ -11,9 +11,8 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
   private val db: UsersDbApi = new UsersDbFacade(dbApi)
 
-  override def userNameAndEmailCheck(username: String, email: String): UsernameAndEmailCheckMessage = {
+  override def userNameAndEmailCheck(username: String, email: String): UsernameAndEmailCheckMessage =
     UsernameAndEmailCheckMessage(usernameExists = db userNameExists(username), emailExists = db emailExists(email))
-  }
 
   override def userNameCheck(username: String): Boolean =
     db userNameExists(username)
@@ -37,7 +36,6 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
   override def register(newUser: User): Option[User] =
     db add newUser
-
 
   override def users(): Seq[User] =
     db list

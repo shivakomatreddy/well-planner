@@ -26,7 +26,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
   def newClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
-    println("A new client request accepted ")
+    println("Adding of new client request incoming")
 
     def createClient(newClient: NewClientMessage): Future[Result] =
       clientsApi.addNewClient(newClient) match {
@@ -34,6 +34,8 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
           logForSuccess(Json.toJson(data).toString)
           Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully created client ${data.name}")))
         case Left(errorMsg) =>
+          logger.info(errorMsg)
+          println("ERROR" + errorMsg)
           Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
       }
 
@@ -44,9 +46,9 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
   }
 
   def updateClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
-    println("Updated client request accepted")
+    println("Updated client request incoming")
 
-    def createClient(client: UpdatedClientMessage): Future[Result] =
+    def update(client: UpdatedClientMessage): Future[Result] =
       clientsApi.updateClientsBasicInfo(client) match {
         case Right(data) =>
           logForSuccess(Json.toJson(data).toString)
@@ -57,7 +59,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
 
     request.body.validate[UpdatedClientMessage].fold(
       errors => badRequest,
-      payload => createClient(payload)
+      payload => update(payload)
     )
   }
 

@@ -22,17 +22,21 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     val Lost = "Lost"
   }
 
+  import ClientStatuses._
+
+  def statusTypes(): Seq[String] =
+    Seq(New, FollowedUp, ConsultationScheduled, ProposalSent, ProposalAccepted, ContractSent, ContractAccepted, Lost)
 
   def addNewClient(newClientMessage: NewClientMessage): Either[String, Client] = {
 
     val newClientId = clientsDb.addNewClient(
       Client(name = Some(newClientMessage.customerName),
         event_type = Some(newClientMessage.eventType),
-        phone_number = newClientMessage.phoneNumber,
+        phone_number = newClientMessage.phoneNumber.toString,
         email = Some(newClientMessage.emailAddress),
-        notes = Some(newClientMessage.notes),
+        notes = Some(""),
         budget = Some(newClientMessage.budget),
-        status = Some(ClientStatuses.New),
+        status = Some(newClientMessage.status),
         business_id = newClientMessage.businessId,
         modified_date = DateTimeNow.getCurrent, created_date = Some(DateTimeNow.getCurrent))
     )
@@ -55,7 +59,7 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     val updatedRows = clientsDb.updateBasicClientInfo(
       Client(id = Some(updateClientMessage.clientId),
              name = Some(updateClientMessage.customerName),
-             phone_number = updateClientMessage.phoneNumber,
+             phone_number = updateClientMessage.phoneNumber.toString,
              email = Some(updateClientMessage.emailAddress),
              budget = Some(updateClientMessage.budget),
              status = Some(updateClientMessage.status),

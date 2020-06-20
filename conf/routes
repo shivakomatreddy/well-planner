@@ -35,7 +35,9 @@ GET    /businesses/clients/:businessId  controllers.ClientsController.businessCl
 
 +nocsrf
 POST   /businesses/clients           controllers.ClientsController.newClient
++nocsrf
 POST   /businesses/clients/update    controllers.ClientsController.updateClient
++nocsrf
 DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.deleteClientById(clientId: Int, businessId : Int)
 
 
