@@ -18,7 +18,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
   private val logger = Logger(this.getClass)
 
   private val clientsApi = new ClientsApi(dbApi, ws)
-
+//  val project = Project(id = Some(weddingProject.id),
   def logForSuccess(data: String) =
     logger.info(s"Successfully created a new client and details follow : \n { $data } ")
 

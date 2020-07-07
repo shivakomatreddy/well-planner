@@ -29,6 +29,7 @@ GET     /pages/dashboard           controllers.HomeController.mainDashboard
 # # Projects
 +nocsrf
 POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
+POST   /businesses/projects/update   controllers.ProjectsController.updateWeddingProject
 
 # # Clients
 GET    /businesses/clients/:businessId  controllers.ClientsController.businessClients(businessId: Int)

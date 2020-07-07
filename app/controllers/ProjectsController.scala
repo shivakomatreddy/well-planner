@@ -44,4 +44,22 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
 
   }
 
+  def updateWeddingProject(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Update project request accepted ")
+    def createProject(newProject: NewWeddingProjectMessage): Future[Result] =
+      projectsApi.updateWeddingEventProject(newProject) match {
+        case Right(projectId) =>
+          logForSuccess(projectId.toString)
+          Future.successful(successResponseWithId(CREATED, projectId, Seq(s"Successfully updated project ${projectId}")))
+        case Left(errMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errMsg")))
+      }
+
+    request.body.validate[NewWeddingProjectMessage].fold(
+      errors => badRequest,
+      payload => createProject(payload)
+    )
+
+  }
+
 }
