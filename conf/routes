@@ -5,38 +5,59 @@
 
 # Web pages
 GET     /                           controllers.HomeController.loginPage
+GET     /register                   controllers.HomeController.registerPage
+GET     /register-business-user     controllers.HomeController.businessUserRegisterPage
+GET     /register-team-users        controllers.HomeController.businessTeamUsersSettingsPage
 
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks
 GET     /pages/settings             controllers.HomeController.settingsPage
 GET     /pages/budget               controllers.HomeController.projectBudgetPage
 GET     /pages/projects             controllers.HomeController.projectsPages
-GET     /pages/dashboard            controllers.HomeController.mainDashboard
+GET     /pages/customers            controllers.HomeController.customerPage
+GET     /pages/invoices             controllers.HomeController.invoicesPage
+GET     /pages/vendors              controllers.HomeController.vendors
+GET     /pages/calendar             controllers.HomeController.businessCalendar
 
 GET     /pages/login                controllers.HomeController.loginPage
 
-# Profile Controller
-GET     /profile-page               controllers.ProfileController.profilePage
+GET     /pages/profile             controllers.ProfileController.profilePage
+GET     /pages/dashboard           controllers.HomeController.mainDashboard
+
+# REST API Routes for data
+
+# # Projects
++nocsrf
+POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
+POST   /businesses/projects/update   controllers.ProjectsController.updateWeddingProject
+
+# # Clients
+GET    /businesses/clients/:businessId  controllers.ClientsController.businessClients(businessId: Int)
+
++nocsrf
+POST   /businesses/clients           controllers.ClientsController.newClient
++nocsrf
+POST   /businesses/clients/update    controllers.ClientsController.updateClient
++nocsrf
+DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.deleteClientById(clientId: Int, businessId : Int)
 
 
-# User Data API Routes
-GET     /tasks:projectId            controllers.TasksController.tasksByProject(projectId: Int)
+# # User Login system
+GET     /login                      controllers.ApplicationController.login
+GET     /logout                     controllers.ApplicationController.logout
+GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
 
 
-#
+# # Businesses
++nocsrf
+POST    /businesses/signUp                 controllers.BusinessController.registerNewBusiness
+GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
+GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 
-
-# examples
-GET     /count                      controllers.CountController.count
-GET     /message                    controllers.AsyncController.message
+# # Users
+GET     /users/:username                  controllers.UsersController.usernameExists(username)
+GET     /users/:email                  controllers.UsersController.usernameExists(email)
 
 
 # assets
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-
-
-#  User Login system
-GET     /login                      controllers.ApplicationController.login
-GET     /logout                     controllers.ApplicationController.logout
-GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])

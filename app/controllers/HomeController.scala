@@ -1,9 +1,8 @@
 package controllers
 
-import javax.inject._
+import javax.inject.{Inject, _}
+import play.api.libs.json.JsNull
 import play.api.mvc._
-import javax.inject.Inject
-import play.api.libs.json.JsValue
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
@@ -37,7 +36,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def mainDashboard = Action {
-    Ok(views.html.mainDashboard("Main Dashboard"))
+    Ok(views.html.mainDashboard(JsNull, 3))
   }
 
   def settingsPage = Action {
@@ -45,7 +44,35 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def loginPage = Action {
-    Ok(views.html.login())
+    Redirect("http://localhost:7000/assets/rubik-presentation-site/well-planner.html")
+  }
+
+  def registerPage = Action {
+    Ok(views.html.register())
+  }
+
+  def customerPage = Action {
+    Ok(views.html.customers("Customers", 6))
+  }
+
+  def invoicesPage = Action {
+    Ok(views.html.invoices("Invoices"))
+  }
+
+  def businessCalendar = Action {
+    Ok(views.html.calendar("Calendar"))
+  }
+
+  def vendors = Action {
+    Ok(views.html.vendors("Vendor Contacts"))
+  }
+
+  def businessUserRegisterPage = Action {
+    Ok(views.html.businessUserRegistration("Welcome to the registration process"))
+  }
+
+  def businessTeamUsersSettingsPage = Action {
+    Ok(views.html.teamSettings("Welcome to the team settings process"))
   }
 
 }

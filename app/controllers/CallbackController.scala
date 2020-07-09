@@ -10,14 +10,18 @@ import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import play.api.libs.ws._
 import play.api.mvc.{Action, AnyContent, Controller}
-import helpers.Auth0Config
-import model.Users
+import controllers.util.Auth0Config
 import play.api.Configuration
 import play.api.cache.SyncCacheApi
+import model.api.users.{Users, _}
+import model.dataModels.User
+import play.api.db.DBApi
 
-class CallbackController @Inject() (cache: DefaultSyncCacheApi, ws: WSClient, configuration: Configuration) extends Controller {
+class CallbackController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, ws: WSClient, configuration: Configuration) extends Controller {
 
   private val config = Auth0Config.get(configuration)
+
+  private val userApi = new UsersFacade(dbApi)
 
 
   def callback(codeOpt: Option[String] = None, stateOpt: Option[String] = None): Action[AnyContent] = Action.async { request =>
@@ -31,7 +35,7 @@ class CallbackController @Inject() (cache: DefaultSyncCacheApi, ws: WSClient, co
           getUser(accessToken).map { user =>
             val id = request.session.get("id").get
             cache.set(request.session.get("id").get + "profile", user)
-            Redirect(routes.HomeController.projectTasks())
+            Redirect(routes.ProfileController.profilePage())
               .withSession(
                 "idToken" -> idToken,
                 "accessToken" -> accessToken,
@@ -48,9 +52,9 @@ class CallbackController @Inject() (cache: DefaultSyncCacheApi, ws: WSClient, co
   }
 
   def getToken(code: String, sessionId: String): Future[(String, String)] = {
-    val tokenResponse = ws.url(String.format("https://%s/oauth/token", config.domain)).
-      withHeaders(HeaderNames.ACCEPT -> MimeTypes.JSON).
-      post(
+    val tokenResponse = ws.url(String.format("https://%s/oauth/token", config.domain))
+      .withHeaders(HeaderNames.ACCEPT -> MimeTypes.JSON)
+      .post(
         Json.obj(
           "client_id" -> config.clientId,
           "client_secret" -> config.secret,

@@ -1,5 +1,14 @@
-app.controller('loginController', function() {
+app.controller('loginController', function($http, $window) {
 
-    var vm = this;
-    console.log("hello world");
+    var pageController = this;
+    pageController.username = "";
+    pageController.password = "";
+
+    console.log("Login Controller initialized");
+    function init() {
+        console.log("Initialization invoked");
+
+    }
+
+
 });

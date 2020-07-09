@@ -19,7 +19,7 @@
             <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
 
-<body class="login-page">
+<body class="login-page" data-ng-app="wellPlanner" data-ng-controller="loginController as loginPageCtrl">
         <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
         <div class="container">
@@ -41,8 +41,8 @@
             <div class="collapse navbar-collapse justify-content-end" id="navigation">
                 <ul class="navbar-nav">
                     <li class="nav-item  active ">
-                        <a href="/" class="nav-link">
-                            <i class="nc-icon nc-tap-01"></i> Login
+                        <a href="/register" class="nav-link">
+                            <i class="nc-icon nc-tap-01"></i>Register
                         </a>
                     </li>
                 </ul>
@@ -50,13 +50,13 @@
         </div>
     </nav>
         <!-- End Navbar -->
-    <div class="wrapper wrapper-full-page ">
-        <div class="full-page section-image" filter-color="black" data-image="@routes.Assets.versioned("template_assets/img/bg/galen-crout.jpg")">
+    <div class="wrapper wrapper-full-page">
+        <div class="full-page section-image" filter-color="white" data-color="#F4F3EF">
                 <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
             <div class="content">
                 <div class="container">
                     <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                        <form class="form" method="" action="">
+                        <form class="form" data-ng-submit="loginPageCtrl.loginSubmission()">
                             <div class="card card-plain card-login">
                                 <div class="card-header ">
                                     <div class="card-header ">
@@ -70,15 +70,7 @@
                                                 <i class="nc-icon nc-single-02"></i>
                                             </span>
                                         </div>
-                                        <input type="text" style="background-color: rgba(0,0,0,0.8);" class="form-control" placeholder="Username">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="nc-icon nc-diamond"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" style="background-color: rgba(0,0,0,0.8);" class="form-control" placeholder="Company Name">
+                                        <input type="text" style="background-color: rgba(0,0,0,0.8);" class="form-control" data-ng-model="loginPageCtrl.email" placeholder="Email">
                                     </div>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -86,7 +78,7 @@
                                                 <i class="nc-icon nc-key-25"></i>
                                             </span>
                                         </div>
-                                        <input type="password" style="background-color: rgba(0,0,0,0.8);" placeholder="Password" class="form-control">
+                                        <input type="password" style="background-color: rgba(0,0,0,0.8);" placeholder="Password" data-ng-model="loginPageCtrl.password" class="form-control">
                                     </div>
                                     <br/>
                                     <div class="form-group">
@@ -100,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer ">
-                                    <a href="/pages/dashboard" class="btn btn-warning btn-round btn-block mb-3">Submit</a>
+                                    <button class="btn btn-warning btn-round btn-block mb-3" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -181,6 +173,21 @@
     <script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
         <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
+
+    <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
+    <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/angular/loginController.js")"></script>
+
+
     <script>
     $(document).ready(function() {
         demo.checkFullPageBackgroundImage();
